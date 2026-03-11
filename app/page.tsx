@@ -13,7 +13,7 @@ export default function Home() {
       <TextReveal text={hoveredCardName} />
 
       {/* Grid Container */}
-      <section className="relative z-10 mx-auto w-full max-w-[1600px] px-4 md:px-8 pt-8 pb-20">
+      <section className="relative z-10 mx-auto w-full max-w-[1600px] px-4 md:px-8 pt-8 pb-20 mt-[200px] md:mt-0">
         <div className="flex flex-col gap-[12px] md:grid md:grid-cols-4 md:gap-[16px] md:auto-rows-[300px]">
 
           {/* Card 1: About */}

@@ -7,7 +7,7 @@
 - Network:       http://192.168.0.2:3000
 
 ✓ Starting...
-✓ Ready in 951ms
+✓ Ready in 1100ms
 ○ Compiling / ...
- GET / 200 in 5.7s (compile: 5.2s, render: 484ms)
- GET / 200 in 67ms (compile: 7ms, render: 60ms)
+ GET / 200 in 5.9s (compile: 5.4s, render: 492ms)
+ GET / 200 in 111ms (compile: 11ms, render: 100ms)
