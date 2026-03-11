@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/open-sauce-sans');
 @import "tailwindcss";
 
 :root {
@@ -8,8 +9,29 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: "Open Sauce Sans", var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
+}
+
+@utility h1-big {
+  font-size: 160px;
+  font-weight: 500;
+  line-height: 1em;
+  letter-spacing: -0.04em;
+}
+
+@utility h2-title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+}
+
+@utility body-base {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4em;
+  letter-spacing: -0.02em;
 }
 
 body {
