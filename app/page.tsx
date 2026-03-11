@@ -14,11 +14,11 @@ export default function Home() {
         <AnimatePresence mode="wait">
           <motion.h1
             key={hoveredText}
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            exit={{ opacity: 0, filter: "blur(10px)", y: -20 }}
+            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
+            animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+            exit={{ opacity: 0, filter: "blur(10px)", scale: 1.05 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="text-[10rem] md:text-[15rem] leading-none tracking-tighter font-bold text-white/90 text-center uppercase"
+            className="text-[15vw] md:text-[12vw] lg:text-[10rem] xl:text-[12rem] leading-none tracking-tighter font-bold text-white/[0.03] text-center uppercase"
           >
             {hoveredText}
           </motion.h1>

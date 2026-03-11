@@ -20,8 +20,8 @@ export function BentoCard({
       onMouseLeave={onMouseLeave}
       className={cn(
         "flex flex-col justify-between relative overflow-hidden group h-full",
-        "bg-[#111111]/70 backdrop-blur-2xl rounded-[2rem] border border-white/[0.06]",
-        "p-6 md:p-8 transition-colors duration-500 hover:bg-[#111111]/80",
+        "bg-white/[0.02] backdrop-blur-3xl rounded-[2rem] border border-white/[0.06]",
+        "p-6 md:p-8 transition-colors duration-500 hover:bg-white/[0.04]",
         className
       )}
       {...props}

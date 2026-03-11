@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "title": "Quantum UI",
+    "slug": "quantum-ui",
+    "category": "Design System",
+    "description": "A comprehensive component library built with Next.js and Tailwind CSS.",
+    "desktopVideoUrl": "/videos/quantum-ui-desktop.mp4",
+    "mobileVideoUrl": "/videos/quantum-ui-mobile.mp4",
+    "techStack": [
+      "Next.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Radix UI"
+    ],
+    "metrics": [
+      {
+        "label": "Components",
+        "value": "45+"
+      },
+      {
+        "label": "Downloads",
+        "value": "12k"
+      }
+    ]
+  }
+]
