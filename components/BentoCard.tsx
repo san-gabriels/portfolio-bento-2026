@@ -39,7 +39,7 @@ export function BentoCard({
         {children}
       </div>
       <div className="flex justify-between items-end mt-4">
-        <h3 className="body-base text-white/90">{title}</h3>
+        <h3 className="text-base text-white/90">{title}</h3>
         <span className="text-white/60 group-hover:text-white transition-colors duration-300">
           ↗
         </span>
