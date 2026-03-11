@@ -27,7 +27,7 @@ export function BentoCard({
       onMouseEnter={() => onHover(title)}
       onMouseLeave={() => onHover("Nolan Carter")}
       className={cn(
-        "flex flex-col relative overflow-hidden group h-full w-full",
+        "flex flex-col relative overflow-hidden group h-full w-full justify-end p-6 md:p-8",
         "bg-white/[0.08] backdrop-blur-[10px] rounded-[32px] border border-white/5",
         "transition-colors duration-300 ease-in-out hover:bg-white/[0.02]",
         colSpanClass,
@@ -35,7 +35,15 @@ export function BentoCard({
       )}
       {...props}
     >
-      {children}
+      <div className="flex-grow">
+        {children}
+      </div>
+      <div className="flex justify-between items-end mt-4">
+        <h3 className="body-base text-white/90">{title}</h3>
+        <span className="text-white/60 group-hover:text-white transition-colors duration-300">
+          ↗
+        </span>
+      </div>
     </div>
   );
 }
