@@ -36,7 +36,7 @@ export function TextReveal({ text }: TextRevealProps) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-[-10]">
+    <div className="fixed top-[15vh] left-0 w-full text-center z-[-10] pointer-events-none">
       <AnimatePresence mode="wait">
         <motion.h1
           key={text}
