@@ -36,7 +36,7 @@ export function TextReveal({ text }: TextRevealProps) {
   };
 
   return (
-    <div className="fixed inset-0 top-[20%] flex items-center justify-center pointer-events-none z-0 h-0">
+    <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-[-10]">
       <AnimatePresence mode="wait">
         <motion.h1
           key={text}
@@ -44,7 +44,7 @@ export function TextReveal({ text }: TextRevealProps) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="h1-big text-white/5 blur-sm uppercase text-center whitespace-nowrap"
+          className="h1-big text-white uppercase text-center whitespace-nowrap"
         >
           {text.split("").map((char, index) => (
             <motion.span key={`${index}-${char}`} variants={letterVariants}>
