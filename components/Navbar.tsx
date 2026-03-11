@@ -15,7 +15,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 flex justify-between px-4 md:px-8 py-6 backdrop-blur-md border-b border-white/5 bg-black/50">
+    <header className="fixed top-0 left-0 w-full z-50 flex justify-between px-4 md:px-8 py-6 backdrop-blur-md border-b border-white/5 bg-transparent">
       <div className="flex-shrink-0">
         <Link href="/" className="text-white font-bold text-xl tracking-tighter">
           Logo
