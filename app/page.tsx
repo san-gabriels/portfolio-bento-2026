@@ -8,12 +8,12 @@ export default function Home() {
   const [hoveredCardName, setHoveredCardName] = useState("Nolan Carter");
 
   return (
-    <main className="relative w-full max-w-[1920px] mx-auto h-[100vh] min-h-[800px] overflow-hidden bg-black">
+    <main className="relative z-0 min-h-screen bg-black overflow-hidden w-full max-w-[1920px] mx-auto h-[100vh]">
       {/* Background Text behind Bento Cards */}
       <TextReveal text={hoveredCardName} />
 
       {/* Grid Container */}
-      <section className="relative z-10 mx-auto w-full max-w-[1600px]">
+      <section className="relative z-20 mx-auto w-full max-w-[1600px]">
         <div className="flex flex-col gap-[12px] pt-[120px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:pt-[60px] min-[700px]:px-8 lg:grid-cols-4 lg:pt-[100px]">
 
           {/* Card 1: About */}
