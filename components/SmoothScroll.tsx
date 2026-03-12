@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis } from "lenis/react";
 import { ReactNode } from "react";
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
@@ -14,6 +14,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       }}
     >
       {/* Forziamo TypeScript ad accettare i children bypassando l'errore di tipo */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {children as any}
     </ReactLenis>
   );
