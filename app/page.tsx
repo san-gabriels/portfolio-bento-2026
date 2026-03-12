@@ -13,7 +13,7 @@ const techStack = [
 ];
 
 export default function Home() {
-  const [hoveredCardName, setHoveredCardName] = useState("Nolan Carter");
+  const [hoveredCardName, setHoveredCardName] = useState(" Mihali");
 
   return (
     <main className="relative z-0 w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-[31px] md:pb-[47px]">

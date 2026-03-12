@@ -80,7 +80,7 @@ export default function AboutPage() {
           <div className="relative aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden rounded-[24px]">
             <Image
               src="/images/profile.webp"
-              alt="Nolan Carter Portrait"
+              alt="Gabriel Mihali Portrait"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -135,16 +135,16 @@ export default function AboutPage() {
             Let's work together
           </span>
           <a
-            href="mailto:hello@example.com"
+            href="mailto:contact@gabrielmihali.com"
             className="text-3xl md:text-5xl lg:text-[60px] font-bold tracking-tighter leading-none hover:text-white/60 transition-colors"
           >
-            HELLO@EXAMPLE.COM
+            contact@gabrielmihali.com
           </a>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-8 border-t border-white/10 mt-12 md:mt-24">
           <div className="text-sm text-white/60">
-            © {new Date().getFullYear()} Nolan Carter. All rights reserved.
+            © {new Date().getFullYear()} ... All rights reserved.
           </div>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Instagram</a>

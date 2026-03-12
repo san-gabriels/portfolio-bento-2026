@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nolan Carter | Portfolio", // Bonus: Aggiornato il titolo della scheda!
+  title: "Gabriel Mihali | Portfolio", // Bonus: Aggiornato il titolo della scheda!
   description: "Art Director & Designer",
 };
 

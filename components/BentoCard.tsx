@@ -29,7 +29,7 @@ export function BentoCard({
   return (
     <div
       onMouseEnter={() => onHover(title)}
-      onMouseLeave={() => onHover("Nolan Carter")}
+      onMouseLeave={() => onHover("Gabriel Mihali")}
       className={cn(
         "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
         "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out",

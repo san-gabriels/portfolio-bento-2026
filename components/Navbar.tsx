@@ -21,7 +21,7 @@ export function Navbar() {
       <div className="flex-shrink-0">
         <Link href="/" className="group relative overflow-hidden inline-flex text-white font-bold text-xl tracking-tighter translate-x-[10px]">
           <span className="flex">
-            {"Nolan Carter".split("").map((char, index) => (
+            {"Gabriel Mihali".split("").map((char, index) => (
               <span
                 key={`top-nav-${index}`}
                 className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
@@ -32,7 +32,7 @@ export function Navbar() {
             ))}
           </span>
           <span className="absolute inset-0 flex">
-            {"Nolan Carter".split("").map((char, index) => (
+            {"Gabriel Mihali".split("").map((char, index) => (
               <span
                 key={`bottom-nav-${index}`}
                 className="transform translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
