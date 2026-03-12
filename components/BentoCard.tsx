@@ -27,7 +27,7 @@ export function BentoCard({
       onMouseEnter={() => onHover(title)}
       onMouseLeave={() => onHover("Nolan Carter")}
       className={cn(
-        "w-full h-full flex flex-col justify-end p-[24px] md:p-[32px] rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
+        "h-full w-full flex flex-col justify-end p-[24px] md:p-[32px] rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
         "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out",
         colSpanClass,
         className
