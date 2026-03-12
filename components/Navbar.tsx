@@ -55,6 +55,7 @@ export function Navbar() {
               href={link.href}
               className={cn(
                 "group relative px-3 py-2 text-sm font-medium transition-colors",
+                // Qui avviene la magia: Bianco se attivo, Grigio al 60% se inattivo
                 isActive ? "text-white" : "text-white/60 hover:text-white"
               )}
             >
@@ -83,17 +84,6 @@ export function Navbar() {
                   ))}
                 </span>
               </div>
-
-              {/* Sottolineatura Framer Motion per il link attivo */}
-              {isActive && (
-                <motion.div
-                  layoutId="navbar-active-underline"
-                  className="absolute left-0 right-0 bottom-0 h-[2px] bg-white"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              )}
             </Link>
           );
         })}
