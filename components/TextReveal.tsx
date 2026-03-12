@@ -41,7 +41,7 @@ export function TextReveal({ text }: TextRevealProps) {
     .join(" ");
 
   return (
-    <div className="fixed top-[20vh] left-0 w-full flex justify-center z-10 pointer-events-none">
+    <div className="fixed top-[60px] md:top-[80px] left-0 w-full flex justify-center z-10 pointer-events-none">
       <AnimatePresence mode="wait">
         <motion.h1
           key={titleCaseText}

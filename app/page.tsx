@@ -13,8 +13,8 @@ export default function Home() {
       <TextReveal text={hoveredCardName} />
 
       {/* Grid Container */}
-      <section className="relative z-20 mt-auto mx-auto w-full max-w-[1600px] flex flex-col flex-1">
-        <div className="mt-auto flex flex-col gap-[12px] pt-[120px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:pt-[60px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2 lg:pt-[100px]">
+      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[60px] md:mt-[90px]">
+        <div className="flex flex-col gap-[12px] pt-[120px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:pt-[60px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2 lg:pt-[100px]">
 
           {/* Card 1: About */}
           <BentoCard
