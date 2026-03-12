@@ -13,7 +13,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         smoothWheel: true, 
       }}
     >
-      {children}
+      {children as any}
     </ReactLenis>
   );
 }
