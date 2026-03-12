@@ -13,25 +13,26 @@ export function TextReveal({ text }: TextRevealProps) {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.4,
-        staggerChildren: 0.05,
+        delayChildren: 0.2,
+        staggerChildren: 0.025,
       },
     },
     exit: {
       opacity: 0,
-      filter: "blur(10px)",
-      transition: {
-        duration: 0.4,
-      },
     },
   };
 
   const letterVariants = {
-    hidden: { opacity: 0, filter: "blur(10px)" },
+    hidden: { y: "110%", opacity: 0 },
     visible: {
+      y: "0%",
       opacity: 1,
-      filter: "blur(0px)",
-      transition: { duration: 0.4 },
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    },
+    exit: {
+      y: "-110%",
+      opacity: 0,
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
     },
   };
 
@@ -49,11 +50,19 @@ export function TextReveal({ text }: TextRevealProps) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="h1-big text-white text-center whitespace-nowrap"
+          className="h1-big text-white text-center whitespace-nowrap relative overflow-hidden"
         >
           {titleCaseText.split("").map((char, index) => (
-            <motion.span key={`${index}-${char}`} variants={letterVariants}>
-              {char === " " ? "\u00A0" : char}
+            <motion.span
+              key={`${index}-${char}`}
+              className="relative overflow-hidden inline-flex"
+            >
+              <motion.span
+                variants={letterVariants}
+                className="inline-block"
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
             </motion.span>
           ))}
         </motion.h1>
