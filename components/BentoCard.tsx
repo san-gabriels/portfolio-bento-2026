@@ -44,10 +44,38 @@ export function BentoCard({
       </div>
       {!hideTitle && (
         <div className="flex justify-between items-end mt-4 relative z-10">
-          <h3 className="text-base text-white/90">{title}</h3>
+          
+          {/* Animazione Titolo a Onda (Staggered) */}
+          <div className="relative overflow-hidden inline-flex text-base text-white/90">
+            <span className="flex">
+              {title.split("").map((char, index) => (
+                <span
+                  key={`top-${index}`}
+                  className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
+                  style={{ transitionDelay: `${index * 20}ms` }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </span>
+            <span className="absolute inset-0 flex text-white">
+              {title.split("").map((char, index) => (
+                <span
+                  key={`bottom-${index}`}
+                  className="transform translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
+                  style={{ transitionDelay: `${index * 20}ms` }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </span>
+          </div>
+
+          {/* Freccia Statica (Solo cambio colore) */}
           <span className="text-white/60 group-hover:text-white transition-colors duration-300">
             ↗
           </span>
+
         </div>
       )}
     </div>
