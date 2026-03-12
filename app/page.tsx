@@ -67,38 +67,55 @@ export default function Home() {
 
           {/* Card 5: Stack & Resume */}
           <div className="md:col-span-1 flex flex-col gap-[12px] md:gap-[16px] h-[300px] md:h-auto">
+            
             <BentoCard
               title="Stack"
               colSpan={1}
               onHover={setHoveredCardName}
               className="flex-1 min-h-[142px] flex items-center justify-center overflow-hidden"
               hideTitle
+              noPadding
             >
-              <div className="relative w-full overflow-hidden flex items-center">
+              <div 
+                className="relative w-full h-full flex items-center justify-center"
+                style={{ 
+                  /* Il gradiente molto aggressivo (25%) per far notare la sfumatura */
+                  WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)',
+                  maskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)',
+                  /* IL TRUCCO MAGICO: forza il browser a renderizzare la maschera insieme all'animazione */
+                  WebkitTransform: 'translateZ(0)',
+                  transform: 'translateZ(0)'
+                }}
+              >
                 <motion.div
-                  className="flex gap-8 whitespace-nowrap"
+                  className="flex gap-[20px] whitespace-nowrap pr-[20px]"
                   animate={{ x: ["0%", "-50%"] }}
                   transition={{
                     repeat: Infinity,
                     ease: "linear",
-                    duration: 10,
+                    duration: 20, /* Velocità premium */
                   }}
                 >
-                  {/* We duplicate the array to create a seamless infinite loop */}
-                  {[...techStack, ...techStack].map((src, index) => (
-                    <div key={index} className="flex-shrink-0">
+                  {/* Array moltiplicato per coprire schermi larghi senza scatti */}
+                  {[...techStack, ...techStack, ...techStack, ...techStack].map((src, index) => (
+                    <div 
+                      key={index} 
+                      /* ECCO LA FORMA: Rettangolo (w-22 h-22) con bordi molto arrotondati (rounded-[24px]) */
+                      className="flex-shrink-0 flex items-center justify-center bg-neutral-800/60 w-[80px] h-[80px] rounded-[24px]"
+                    >
                       <Image
                         src={src}
                         alt="Tech Logo"
                         width={40}
                         height={40}
-                        className="h-10 w-auto object-contain"
+                        className="object-contain"
                       />
                     </div>
                   ))}
                 </motion.div>
               </div>
             </BentoCard>
+
             <BentoCard
               title="Resume"
               colSpan={1}
