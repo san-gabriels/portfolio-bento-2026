@@ -8,7 +8,7 @@ export default function Home() {
   const [hoveredCardName, setHoveredCardName] = useState("Nolan Carter");
 
   return (
-    <main className="relative w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-4 md:pb-8">
+    <main className="relative w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-[31px] md:pb-[47px]">
       {/* Background Text behind Bento Cards */}
       <TextReveal text={hoveredCardName} />
 
