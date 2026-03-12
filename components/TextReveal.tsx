@@ -35,18 +35,23 @@ export function TextReveal({ text }: TextRevealProps) {
     },
   };
 
+  const titleCaseText = text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+
   return (
-    <div className="fixed top-[100px] md:top-[120px] left-0 w-full flex justify-center z-10 pointer-events-none">
+    <div className="fixed top-[70px] md:top-[90px] left-0 w-full flex justify-center z-10 pointer-events-none">
       <AnimatePresence mode="wait">
         <motion.h1
-          key={text}
+          key={titleCaseText}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="h1-big text-white uppercase text-center whitespace-nowrap"
+          className="h1-big text-white text-center whitespace-nowrap"
         >
-          {text.split("").map((char, index) => (
+          {titleCaseText.split("").map((char, index) => (
             <motion.span key={`${index}-${char}`} variants={letterVariants}>
               {char === " " ? "\u00A0" : char}
             </motion.span>
