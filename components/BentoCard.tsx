@@ -5,6 +5,8 @@ interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   colSpan?: number;
   onHover: (title: string) => void;
+  noPadding?: boolean;
+  hideTitle?: boolean;
 }
 
 export function BentoCard({
@@ -13,6 +15,8 @@ export function BentoCard({
   onHover,
   className,
   children,
+  noPadding = false,
+  hideTitle = false,
   ...props
 }: BentoCardProps) {
   const colSpanClass = {
@@ -27,22 +31,25 @@ export function BentoCard({
       onMouseEnter={() => onHover(title)}
       onMouseLeave={() => onHover("Nolan Carter")}
       className={cn(
-        "h-full w-full flex flex-col justify-end p-[24px] md:p-[32px] rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
+        "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
         "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out",
+        !noPadding && "p-[24px] md:p-[32px]",
         colSpanClass,
         className
       )}
       {...props}
     >
-      <div className="flex-grow">
+      <div className={cn("flex-grow", noPadding && "h-full w-full absolute inset-0")}>
         {children}
       </div>
-      <div className="flex justify-between items-end mt-4">
-        <h3 className="text-base text-white/90">{title}</h3>
-        <span className="text-white/60 group-hover:text-white transition-colors duration-300">
-          ↗
-        </span>
-      </div>
+      {!hideTitle && (
+        <div className="flex justify-between items-end mt-4 relative z-10">
+          <h3 className="text-base text-white/90">{title}</h3>
+          <span className="text-white/60 group-hover:text-white transition-colors duration-300">
+            ↗
+          </span>
+        </div>
+      )}
     </div>
   );
 }
