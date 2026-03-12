@@ -17,3 +17,13 @@
  GET /portfolio 200 in 91ms (compile: 8ms, render: 82ms)
  GET /portfolio 200 in 89ms (compile: 5ms, render: 84ms)
  GET /portfolio/e-commerce-redesign 200 in 1264ms (compile: 1167ms, render: 97ms)
+Error: Turbopack build failed with 1 errors:
+./app
+Error: Next.js inferred your workspace root, but it may not be correct.
+    We couldn't find the Next.js package (next/package.json) from the project directory: /app/app
+     To fix this, set turbopack.root in your Next.js config, or ensure the Next.js package is resolvable from this directory.
+    Note: For security and performance reasons, files outside of the project directory will not be compiled.
+    See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+
+    at ignore-listed frames
+[?25h
