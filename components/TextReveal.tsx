@@ -13,12 +13,13 @@ export function TextReveal({ text }: TextRevealProps) {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.2,
+        delayChildren: 0,
         staggerChildren: 0.025,
       },
     },
     exit: {
       opacity: 0,
+      transition: { duration: 0.2 }
     },
   };
 
@@ -27,12 +28,12 @@ export function TextReveal({ text }: TextRevealProps) {
     visible: {
       y: "0%",
       opacity: 1,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
     },
     exit: {
       y: "-110%",
       opacity: 0,
-      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
     },
   };
 
@@ -43,14 +44,15 @@ export function TextReveal({ text }: TextRevealProps) {
 
   return (
     <div className="fixed top-[60px] md:top-[80px] left-0 w-full flex justify-center z-10 pointer-events-none">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         <motion.h1
           key={titleCaseText}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="h1-big text-white text-center whitespace-nowrap relative overflow-hidden"
+          // ECCO LA MODIFICA CHIAVE: absolute left-0 w-full invece di relative
+          className="h1-big text-white text-center whitespace-nowrap absolute left-0 w-full overflow-hidden"
         >
           {titleCaseText.split("").map((char, index) => (
             <motion.span
