@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { BentoCard } from "@/components/BentoCard";
 import { TextReveal } from "@/components/TextReveal";
+
+const techStack = [
+  "/stack/google-analytics.svg",
+  "/stack/google-tag-manager.svg",
+  "/stack/wordpress-color.svg",
+];
 
 export default function Home() {
   const [hoveredCardName, setHoveredCardName] = useState("Nolan Carter");
@@ -22,9 +30,7 @@ export default function Home() {
             colSpan={1}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
-          >
-            <p className="body-base text-white/60">[About Content]</p>
-          </BentoCard>
+          />
 
           {/* Card 2: Portfolio */}
           <BentoCard
@@ -32,9 +38,7 @@ export default function Home() {
             colSpan={3}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
-          >
-            <p className="body-base text-white/60">[Portfolio Content]</p>
-          </BentoCard>
+          />
 
           {/* Card 3: Contact */}
           <BentoCard
@@ -42,9 +46,7 @@ export default function Home() {
             colSpan={2}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
-          >
-            <p className="body-base text-white/60">[Contact Content]</p>
-          </BentoCard>
+          />
 
           {/* Card 4: Photo */}
           <BentoCard
@@ -52,8 +54,15 @@ export default function Home() {
             colSpan={1}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
+            noPadding
+            hideTitle
           >
-            <p className="body-base text-white/60">[Image]</p>
+            <Image
+              src="/images/profile.webp"
+              alt="Profile"
+              fill
+              className="object-cover"
+            />
           </BentoCard>
 
           {/* Card 5: Stack & Resume */}
@@ -62,8 +71,34 @@ export default function Home() {
               title="Stack"
               colSpan={1}
               onHover={setHoveredCardName}
-              className="flex-1 min-h-[142px]"
-            />
+              className="flex-1 min-h-[142px] flex items-center justify-center overflow-hidden"
+              hideTitle
+            >
+              <div className="relative w-full overflow-hidden flex items-center">
+                <motion.div
+                  className="flex gap-8 whitespace-nowrap"
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{
+                    repeat: Infinity,
+                    ease: "linear",
+                    duration: 10,
+                  }}
+                >
+                  {/* We duplicate the array to create a seamless infinite loop */}
+                  {[...techStack, ...techStack].map((src, index) => (
+                    <div key={index} className="flex-shrink-0">
+                      <Image
+                        src={src}
+                        alt="Tech Logo"
+                        width={40}
+                        height={40}
+                        className="h-10 w-auto object-contain"
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </BentoCard>
             <BentoCard
               title="Resume"
               colSpan={1}
