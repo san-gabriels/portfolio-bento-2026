@@ -132,7 +132,7 @@ export default function AboutPage() {
       <footer className="w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8 pb-12 flex flex-col gap-12">
         <div className="flex flex-col">
           <span className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
-            Let's work together
+            Let&apos;s work together
           </span>
           <a
             href="mailto:hello@example.com"
