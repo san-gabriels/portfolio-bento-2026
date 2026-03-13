@@ -47,9 +47,9 @@ export default function Home() {
             className="h-[300px] md:h-auto"
           />
 
-          {/* Card 3: Contact */}
+          {/* Card 3: experiments */}
           <BentoCard
-            title="Contact"
+            title="experiments"
             colSpan={2}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"

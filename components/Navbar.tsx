@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { name: "Portfolio", href: "/portfolio" },
   { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "experiments", href: "/experiments" },
 ];
 
 export function Navbar() {
