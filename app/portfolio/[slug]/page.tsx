@@ -1,15 +1,5 @@
-// 1. Questa riga è il "lasciapassare" ufficiale per Cloudflare
+// Questo è l'unico lasciapassare che Cloudflare vuole
 export const runtime = 'edge';
-
-export function generateStaticParams() {
-  return [
-    { slug: 'travel-easy' },
-    { slug: 'gamma' },
-    { slug: 'stream-ai' },
-    { slug: 'frame' },
-    { slug: 'edfaost' },
-  ];
-}
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
