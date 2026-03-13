@@ -14,7 +14,8 @@
 }
 
 @utility h1-big {
-  font-size: 160px;
+  /* clamp(minimo, dimensione-ideale-fluida, massimo) */
+  font-size: clamp(48px, 12vw, 160px); 
   font-weight: 500;
   line-height: 1em;
   letter-spacing: -0.04em;

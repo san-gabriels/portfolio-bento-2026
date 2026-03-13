@@ -14,11 +14,13 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="absolute top-0 left-0 right-0 w-full max-w-[1600px] mx-auto h-[76px] flex justify-between items-center px-4 min-[700px]:px-8 bg-transparent z-50 pointer-events-auto">
+    // CAMBIO QUI: Aggiunto flex-col gap-4 py-4 per il mobile, e ripristinato flex-row h-[76px] py-0 per i min-[700px]
+    <header className="absolute top-0 left-0 right-0 w-full max-w-[1600px] mx-auto min-h-[76px] py-4 min-[700px]:py-0 flex flex-col min-[700px]:flex-row justify-center min-[700px]:justify-between items-center px-4 min-[700px]:px-8 bg-transparent z-50 pointer-events-auto gap-4 min-[700px]:gap-0">
       
-      {/* Logo / Nome a Sinistra */}
-      <div className="flex-shrink-0">
-        <Link href="/" className="group relative overflow-hidden inline-flex text-white font-medium text-xl tracking-tighter translate-x-[10px]">
+      {/* Logo / Nome (Centrato su mobile, a sinistra su desktop) */}
+      <div className="flex-shrink-0 flex items-center justify-center">
+        {/* rimosso translate-x-[10px] su mobile per centrarlo perfettamente */}
+        <Link href="/" className="group relative overflow-hidden inline-flex text-white font-medium text-xl tracking-tighter min-[700px]:translate-x-[10px]">
           <span className="flex">
             {"Gabriel Mihali".split("").map((char, index) => (
               <span
@@ -44,8 +46,8 @@ export function Navbar() {
         </Link>
       </div>
 
-      {/* Navigazione a Destra */}
-      <nav className="flex space-x-1 sm:space-x-4">
+      {/* Navigazione (Centrata su mobile, a destra su desktop) */}
+      <nav className="flex space-x-2 sm:space-x-4">
         {links.map((link) => {
           const isActive = pathname === link.href;
           return (
@@ -53,8 +55,7 @@ export function Navbar() {
               key={link.name}
               href={link.href}
               className={cn(
-                "group relative px-3 py-2 text-sm font-medium transition-colors",
-                // Qui avviene la magia: Bianco se attivo, Grigio al 60% se inattivo
+                "group relative px-2 sm:px-3 py-2 text-sm font-medium transition-colors",
                 isActive ? "text-white" : "text-white/60 hover:text-white"
               )}
             >

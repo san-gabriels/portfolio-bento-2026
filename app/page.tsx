@@ -23,13 +23,13 @@ export default function Home() {
       {/* BACKGROUND TEXT CON GRAVITÀ LUNARE */}
       {/* fixed inset-0 blocca il testo a schermo intero, -z-10 lo mette in secondo piano */}
       {/* Background Text behind Bento Cards */}
-      <div className="absolute top-[80px] md:top-[100px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
+      <div className="absolute top-[120px] md:top-[100px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
         <GravityText key={hoveredCardName} text={hoveredCardName} />
       </div>
 
-      {/* Grid Container */}
-      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[60px] md:mt-[90px]">
-        <div className="flex flex-col gap-[12px] pt-[120px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:pt-[60px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2 lg:pt-[100px]">
+      {/* Grid Container - Spinto in basso sotto il testo */}
+      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[270px]">
+        <div className="flex flex-col gap-[12px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2">
 
           {/* Card 1: About */}
           <BentoCard
