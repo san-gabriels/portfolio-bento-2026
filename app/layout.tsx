@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// 1. IMPORTA IL MOTORE PER I FONT LOCALI
+import localFont from "next/font/local"; 
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-import { SmoothScroll } from "@/components/SmoothScroll"; // 1. IMPORT AGGIUNTO QUI
+import { SmoothScroll } from "@/components/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// 2. CARICA IL TUO FILE FONT
+const mioFont = localFont({
+  src: "./fonts/DepartureMono-Regular.woff2", // <-- Inserisci il nome esatto del tuo file
+  variable: "--font-custom", // (Opzionale) utile se usi Tailwind
 });
 
 export const metadata: Metadata = {
-  title: "Gabriel Mihali | Portfolio", // Bonus: Aggiornato il titolo della scheda!
+  title: "Gabriel Mihali | Portfolio",
   description: "Art Director & Designer",
 };
 
@@ -26,10 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* 3. APPLICA IL FONT AL BODY */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${mioFont.className} antialiased bg-black text-white`}
       >
-        {/* 2. LA MAGIA INIZIA QUI: Avvolgiamo tutto dentro SmoothScroll */}
         <SmoothScroll>
           <Navbar />
           {children}
