@@ -18,7 +18,7 @@ export function Navbar() {
       
       {/* Logo / Nome a Sinistra */}
       <div className="flex-shrink-0">
-        <Link href="/" className="group relative overflow-hidden inline-flex text-white font-bold text-xl tracking-tighter translate-x-[10px]">
+        <Link href="/" className="group relative overflow-hidden inline-flex text-white font-medium text-xl tracking-tighter translate-x-[10px]">
           <span className="flex">
             {"Gabriel Mihali".split("").map((char, index) => (
               <span
