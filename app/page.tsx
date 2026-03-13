@@ -28,7 +28,7 @@ export default function Home() {
       </div>
 
       {/* Grid Container - Spinto in basso sotto il testo */}
-      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[270px]">
+      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[250px]">
         <div className="flex flex-col gap-[12px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2">
 
           {/* Card 1: About */}
