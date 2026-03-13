@@ -66,18 +66,19 @@ export function GravityText({ text }: { text: string }) {
 
       // FASE 3: Il decadimento a lunghissimo termine
       if (isMounted) {
-        await controls.start((custom) => ({
-          y: [0, -10, 1500],
-          opacity: [1, 1, 0.8, 0],
-          rotate: custom.physics.rotate,
-          transition: {
-            // Usiamo il delay cumulativo calcolato nella nostra sceneggiatura
-            delay: custom.physics.fallDelay, 
-            duration: 3.5, 
-            ease: [0.4, 0, 1, 1], 
-          },
-        }));
-      }
+  await controls.start((custom) => ({
+    y: [0, -10, 1000], // Ridotto leggermente a 1000 per sicurezza
+    opacity: [1, 1, 0],
+    rotate: custom.physics.rotate,
+    transition: {
+      delay: custom.physics.fallDelay, 
+      duration: 3.5, 
+      ease: [0.4, 0, 1, 1], 
+    },
+    // Questo dice al browser: "Una volta finito, fai finta che non esista più"
+    transitionEnd: { display: "none" } 
+  }));
+}
     };
 
     runAnimationSequence();

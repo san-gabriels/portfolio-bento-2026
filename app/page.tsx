@@ -23,7 +23,7 @@ export default function Home() {
       {/* BACKGROUND TEXT CON GRAVITÀ LUNARE */}
       {/* fixed inset-0 blocca il testo a schermo intero, -z-10 lo mette in secondo piano */}
       {/* Background Text behind Bento Cards */}
-      <div className="absolute top-[80px] md:top-[100px] left-0 w-full flex justify-center z-0 pointer-events-none select-none">
+      <div className="absolute top-[80px] md:top-[100px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
         <GravityText key={hoveredCardName} text={hoveredCardName} />
       </div>
 
@@ -57,7 +57,7 @@ export default function Home() {
 
           {/* Card 4: Photo */}
           <BentoCard
-            title="Photo"
+            title="--.§.-.s-d.-="
             colSpan={1}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
