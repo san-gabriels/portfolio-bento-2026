@@ -1,10 +1,11 @@
 "use client";
 
+// 1. Assicurati che GravityText sia importato (TextReveal non ci serve più)
+import { GravityText } from "@/components/GravityText";
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { BentoCard } from "@/components/BentoCard";
-import { TextReveal } from "@/components/TextReveal";
 
 const techStack = [
   "/stack/google-analytics.svg",
@@ -17,8 +18,14 @@ export default function Home() {
 
   return (
     <main className="relative z-0 w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-[31px] md:pb-[47px]">
+      
+      {/* BACKGROUND TEXT CON GRAVITÀ (Sostituisce TextReveal) */}
+      {/* BACKGROUND TEXT CON GRAVITÀ LUNARE */}
+      {/* fixed inset-0 blocca il testo a schermo intero, -z-10 lo mette in secondo piano */}
       {/* Background Text behind Bento Cards */}
-      <TextReveal text={hoveredCardName} />
+      <div className="absolute top-[80px] md:top-[100px] left-0 w-full flex justify-center z-0 pointer-events-none select-none">
+        <GravityText key={hoveredCardName} text={hoveredCardName} />
+      </div>
 
       {/* Grid Container */}
       <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[60px] md:mt-[90px]">
@@ -79,10 +86,8 @@ export default function Home() {
               <div 
                 className="relative w-full h-full flex items-center justify-center"
                 style={{ 
-                  /* Il gradiente molto aggressivo (25%) per far notare la sfumatura */
                   WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)',
                   maskImage: 'linear-gradient(to right, transparent, black 25%, black 75%, transparent)',
-                  /* IL TRUCCO MAGICO: forza il browser a renderizzare la maschera insieme all'animazione */
                   WebkitTransform: 'translateZ(0)',
                   transform: 'translateZ(0)'
                 }}
@@ -93,14 +98,12 @@ export default function Home() {
                   transition={{
                     repeat: Infinity,
                     ease: "linear",
-                    duration: 20, /* Velocità premium */
+                    duration: 20, 
                   }}
                 >
-                  {/* Array moltiplicato per coprire schermi larghi senza scatti */}
                   {[...techStack, ...techStack, ...techStack, ...techStack].map((src, index) => (
                     <div 
                       key={index} 
-                      /* ECCO LA FORMA: Rettangolo (w-22 h-22) con bordi molto arrotondati (rounded-[24px]) */
                       className="flex-shrink-0 flex items-center justify-center bg-neutral-800/60 w-[80px] h-[80px] rounded-[24px]"
                     >
                       <Image

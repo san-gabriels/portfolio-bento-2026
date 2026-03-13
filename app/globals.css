@@ -40,3 +40,24 @@ body {
   overflow-x: hidden;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+/* AGGIUNGI IN FONDO AL FILE */
+
+.bg-crt-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  
+  /* 1. ABBASSA LA TRASPARENZA GENERALE (da 0.08 a 0.04) */
+  opacity: 0.02; 
+  
+  /* 2. ALZA IL CONTRASTO DELLA GRANA (150% o 200%) E LA LUMINOSITÀ */
+  filter: contrast(190%) brightness(120%); 
+
+  mix-blend-mode: screen; 
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  
+  /* I TRUCCHI ANTI-SPARIZIONE PER LA SCHEDA VIDEO */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

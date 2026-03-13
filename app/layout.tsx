@@ -66,6 +66,10 @@ export default function RootLayout({
       <body
         className={`${bogitaMono.className} antialiased bg-black text-white`}
       >
+        {/* IL LIVELLO GRANA 90s */}
+       {/* IL LIVELLO GRANA 90s POTENZIATO */}
+<div className="fixed inset-0 z-[9999] bg-crt-noise pointer-events-none"></div>
+
         <SmoothScroll>
           <Navbar />
           {children}

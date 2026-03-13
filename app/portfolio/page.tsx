@@ -98,6 +98,8 @@ export default function PortfolioPage() {
               <div
                 className={`relative w-full overflow-hidden rounded-[18px] bg-white/5 ${
                   project.colSpan === 2 ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"
+                  
+                  
                 }`}
               >
                 <Image
