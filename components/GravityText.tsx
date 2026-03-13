@@ -6,19 +6,42 @@ import { useEffect, useMemo } from "react";
 export function GravityText({ text }: { text: string }) {
   const controls = useAnimation();
 
-  // 1. Contiamo le lettere effettive (ignorando gli spazi vuoti)
   const totalLetters = useMemo(() => {
     return Array.from(text).filter((char) => char !== " ").length;
   }, [text]);
 
-  // 2. Creiamo un ordine di caduta totalmente casuale (es. la 5° lettera cade per prima, la 1° cade per terza, ecc.)
-  const shuffledOrders = useMemo(() => {
-    const arr = Array.from({ length: totalLetters }, (_, i) => i);
-    for (let i = arr.length - 1; i > 0; i--) {
+  // LA SCENEGGIATURA DEL DECADIMENTO (Il motore fisico calcolato in anticipo)
+  const letterPhysics = useMemo(() => {
+    // 1. Creiamo un array con gli indici di tutte le lettere [0, 1, 2...] e lo mescoliamo
+    const indices = Array.from({ length: totalLetters }, (_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
+      [indices[i], indices[j]] = [indices[j], indices[i]];
     }
-    return arr;
+
+    const data = new Array(totalLetters);
+    let currentCumulativeDelay = 0; // Il timer globale che scorre
+
+    // 2. Assegniamo a ciascuna lettera il suo momento esatto di caduta
+    for (let i = 0; i < indices.length; i++) {
+      const letterIndex = indices[i];
+      
+      // Calcoliamo una rotazione caotica casuale (tra 5 e 25 gradi)
+      const randomRotation = (Math.random() * 20 + 5) * (i % 2 === 0 ? 1 : -1);
+
+      // Salviamo le istruzioni esatte per QUESTA specifica lettera
+      data[letterIndex] = {
+        fallDelay: currentCumulativeDelay,
+        rotate: randomRotation,
+      };
+
+      // IL TRUCCO È QUI: Dopo aver deciso quando cade questa lettera, 
+      // aggiungiamo un tempo casuale tra 8 e 15 secondi PRIMA che tocchi alla prossima!
+      const randomWaitTime = Math.random() * (15 - 8) + 8;
+      currentCumulativeDelay += randomWaitTime;
+    }
+
+    return data;
   }, [totalLetters, text]);
 
   useEffect(() => {
@@ -27,34 +50,31 @@ export function GravityText({ text }: { text: string }) {
     const runAnimationSequence = async () => {
       controls.set({ opacity: 0, y: 50, rotate: 0 });
 
-      // FASE 1: Entrata ordinata (da sinistra a destra)
+      // FASE 1: Entrata ordinata (veloce, per far leggere il testo all'utente)
       if (isMounted) {
         await controls.start((custom) => ({
           opacity: 1,
           y: 0,
-          // Usa l'indice di entrata per apparire in ordine
           transition: { delay: custom.enterIndex * 0.03, duration: 0.6, ease: "easeOut" },
         }));
       }
 
-      // FASE 2: Pausa fissa di 0.5 secondi
+      // FASE 2: Pausa iniziale in cui il testo è perfettamente integro (1.5s come prima)
       if (isMounted) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
       }
 
-      // FASE 3: Gravità Lunare (Ordine Casuale e molto più lenta)
+      // FASE 3: Il decadimento a lunghissimo termine
       if (isMounted) {
         await controls.start((custom) => ({
           y: [0, -10, 1500],
           opacity: [1, 1, 0.8, 0],
-          // Anche la rotazione è casuale e caotica
-          rotate: custom.fallOrder % 2 === 0 ? 10 + custom.fallOrder : -10 - custom.fallOrder,
+          rotate: custom.physics.rotate,
           transition: {
-            // IL SEGRETO È QUI: Ritardo basato sull'ordine casuale. 
-            // Moltiplicato per 0.2 (molto più lento di prima, così si staccano una ad una)
-            delay: custom.fallOrder * 0.2, 
+            // Usiamo il delay cumulativo calcolato nella nostra sceneggiatura
+            delay: custom.physics.fallDelay, 
             duration: 3.5, 
-            ease: [0.4, 0, 1, 1], // Fisica "vuoto spaziale"
+            ease: [0.4, 0, 1, 1], 
           },
         }));
       }
@@ -66,27 +86,26 @@ export function GravityText({ text }: { text: string }) {
       isMounted = false;
       controls.stop();
     };
-  }, [controls, text, shuffledOrders]);
+  }, [controls, letterPhysics]);
 
-  let globalEnterIndex = 0;
-  let globalFallIndex = 0;
+  let charIndex = 0;
 
   return (
     <div className="flex flex-wrap justify-center w-full">
       {text.split(" ").map((word, wIndex) => (
         <span key={`${word}-${wIndex}`} className="inline-flex mr-[0.3em] last:mr-0">
           {Array.from(word).map((letter, lIndex) => {
-            const enterIndex = globalEnterIndex++;
-            const fallOrder = shuffledOrders[globalFallIndex++];
-
+            const currentIndex = charIndex++;
             return (
               <motion.span
                 key={`${letter}-${lIndex}-${text}`}
-                // Passiamo ad ogni lettera due "biglietti": uno per l'entrata e uno per la caduta
-                custom={{ enterIndex, fallOrder }}
+                // Passiamo alla lettera sia l'ordine di entrata che la sua fisica di caduta
+                custom={{ 
+                  enterIndex: currentIndex, 
+                  physics: letterPhysics[currentIndex] 
+                }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={controls}
-                // NIENTE PIÙ CAPSLOCK: Rimosso 'capitalize' o 'uppercase'. Usa solo il tuo h1-big e il bianco.
                 className="inline-block origin-bottom h1-big text-white whitespace-nowrap"
               >
                 {letter}
