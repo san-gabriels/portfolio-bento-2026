@@ -37,6 +37,7 @@ export default function Home() {
             colSpan={1}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
+            href="/about"
           />
 
           {/* Card 2: Portfolio */}
@@ -45,6 +46,7 @@ export default function Home() {
             colSpan={3}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
+            href="/portfolio"
           />
 
           {/* Card 3: experiments */}
@@ -53,11 +55,12 @@ export default function Home() {
             colSpan={2}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"
+            href="/experiments"
           />
 
           {/* Card 4: Photo */}
           <BentoCard
-            title="--.§.-.s-d.-="
+            title="Hi!"
             colSpan={1}
             onHover={setHoveredCardName}
             className="h-[300px] md:h-auto"

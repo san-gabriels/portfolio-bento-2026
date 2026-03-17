@@ -1,12 +1,14 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link"; // 1. Aggiunto l'import per i link di Next.js
 
-interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement | HTMLAnchorElement> {
   title: string;
   colSpan?: number;
   onHover: (title: string) => void;
   noPadding?: boolean;
   hideTitle?: boolean;
+  href?: string; // 2. Aggiunta la prop opzionale per l'URL
 }
 
 export function BentoCard({
@@ -17,6 +19,7 @@ export function BentoCard({
   children,
   noPadding = false,
   hideTitle = false,
+  href, // Estratta la prop
   ...props
 }: BentoCardProps) {
   const colSpanClass = {
@@ -26,19 +29,18 @@ export function BentoCard({
     4: "md:col-span-4",
   }[colSpan] || "md:col-span-1";
 
-  return (
-    <div
-      onMouseEnter={() => onHover(title)}
-      onMouseLeave={() => onHover("Gabriel Mihali")}
-      className={cn(
-        "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
-        "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out",
-        !noPadding && "p-[24px] md:p-[32px]",
-        colSpanClass,
-        className
-      )}
-      {...props}
-    >
+  // Raggruppiamo le classi per non doverle riscrivere
+  const containerClasses = cn(
+    "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
+    "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out cursor-pointer", // Aggiunto cursor-pointer
+    !noPadding && "p-[24px] md:p-[32px]",
+    colSpanClass,
+    className
+  );
+
+  // Impacchettiamo il contenuto per mantenere il codice DRY (Don't Repeat Yourself)
+  const innerContent = (
+    <>
       <div className={cn("flex-grow", noPadding && "h-full w-full absolute inset-0")}>
         {children}
       </div>
@@ -78,6 +80,32 @@ export function BentoCard({
 
         </div>
       )}
+    </>
+  );
+
+  // 3. LOGICA DI RENDERING: Se c'è un href, usiamo <Link>, altrimenti <div>
+  if (href) {
+    return (
+      <Link
+        href={href}
+        onMouseEnter={() => onHover(title)}
+        onMouseLeave={() => onHover("Gabriel Mihali")}
+        className={containerClasses}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {innerContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      onMouseEnter={() => onHover(title)}
+      onMouseLeave={() => onHover("Gabriel Mihali")}
+      className={containerClasses}
+      {...(props as React.HTMLAttributes<HTMLDivElement>)}
+    >
+      {innerContent}
     </div>
   );
 }

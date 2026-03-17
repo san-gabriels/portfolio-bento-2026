@@ -61,7 +61,7 @@ export function GravityText({ text }: { text: string }) {
 
       // FASE 2: Pausa iniziale in cui il testo è perfettamente integro (1.5s come prima)
       if (isMounted) {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 5000));
       }
 
       // FASE 3: Il decadimento a lunghissimo termine
