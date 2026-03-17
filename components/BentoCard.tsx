@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import Link from "next/link"; // 1. Aggiunto l'import per i link di Next.js
+import Link from "next/link"; 
 
 interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement | HTMLAnchorElement> {
   title: string;
@@ -8,7 +8,7 @@ interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement | HTMLAncho
   onHover: (title: string) => void;
   noPadding?: boolean;
   hideTitle?: boolean;
-  href?: string; // 2. Aggiunta la prop opzionale per l'URL
+  href?: string; 
 }
 
 export function BentoCard({
@@ -19,7 +19,7 @@ export function BentoCard({
   children,
   noPadding = false,
   hideTitle = false,
-  href, // Estratta la prop
+  href, 
   ...props
 }: BentoCardProps) {
   const colSpanClass = {
@@ -29,16 +29,14 @@ export function BentoCard({
     4: "md:col-span-4",
   }[colSpan] || "md:col-span-1";
 
-  // Raggruppiamo le classi per non doverle riscrivere
   const containerClasses = cn(
-    "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[10px] bg-white/[0.08] hover:bg-white/[0.02]",
-    "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out cursor-pointer", // Aggiunto cursor-pointer
+    "h-full w-full flex flex-col justify-end rounded-[32px] backdrop-blur-[7px] bg-white/[0.08] hover:bg-white/[0.04]",
+    "relative overflow-hidden group border border-white/5 transition-colors duration-300 ease-in-out cursor-pointer", 
     !noPadding && "p-[24px] md:p-[32px]",
     colSpanClass,
     className
   );
 
-  // Impacchettiamo il contenuto per mantenere il codice DRY (Don't Repeat Yourself)
   const innerContent = (
     <>
       <div className={cn("flex-grow", noPadding && "h-full w-full absolute inset-0")}>
@@ -47,7 +45,6 @@ export function BentoCard({
       {!hideTitle && (
         <div className="flex justify-between items-end mt-4 relative z-10">
           
-          {/* Animazione Titolo a Onda (Staggered) */}
           <div className="relative overflow-hidden inline-flex text-base text-white/90">
             <span className="flex">
               {title.split("").map((char, index) => (
@@ -73,7 +70,6 @@ export function BentoCard({
             </span>
           </div>
 
-          {/* Freccia Statica (Solo cambio colore) */}
           <span className="text-white/60 group-hover:text-white transition-colors duration-300">
             ↗
           </span>
@@ -83,13 +79,13 @@ export function BentoCard({
     </>
   );
 
-  // 3. LOGICA DI RENDERING: Se c'è un href, usiamo <Link>, altrimenti <div>
+  // LOGICA DI RENDERING: Rimosso onMouseLeave da entrambi i ritorni!
   if (href) {
     return (
       <Link
         href={href}
         onMouseEnter={() => onHover(title)}
-        onMouseLeave={() => onHover("Gabriel Mihali")}
+        // onMouseLeave rimosso qui
         className={containerClasses}
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
@@ -101,7 +97,7 @@ export function BentoCard({
   return (
     <div
       onMouseEnter={() => onHover(title)}
-      onMouseLeave={() => onHover("Gabriel Mihali")}
+      // onMouseLeave rimosso anche qui
       className={containerClasses}
       {...(props as React.HTMLAttributes<HTMLDivElement>)}
     >

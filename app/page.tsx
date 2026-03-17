@@ -13,21 +13,21 @@ const techStack = [
 ];
 
 export default function Home() {
-  const [hoveredCardName, setHoveredCardName] = useState(" Mihali");
+  const [hoveredCardName, setHoveredCardName] = useState("Mihali");
 
   return (
     <main className="relative z-0 w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-[31px] md:pb-[47px]">
       
       {/* BACKGROUND TEXT CON GRAVITÀ LUNARE */}
-      <div className="absolute top-[130px] md:top-[120px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
+      <div className="absolute top-[110px] md:top-[130px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
         <GravityText key={hoveredCardName} text={hoveredCardName} />
       </div>
 
       {/* Grid Container */}
-      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[220px]">
+      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[140px] md:mt-[240px] lg:mt-[220px] lg:flex-1">
         
-        {/* LA GRIGLIA: 2 colonne(mobile) -> 4 colonne(tablet) -> 4 colonne(desktop) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[12px] md:gap-[16px] pb-[16px] px-4 md:px-8 lg:grid-rows-2">
+        {/* LA MAGIA: grid-cols-[7fr_3fr] per il 70/30 su mobile. Su md torna a 4 colonne regolari. */}
+        <div className="grid grid-cols-[7fr_3fr] md:grid-cols-4 gap-[12px] md:gap-[16px] pb-[16px] px-4 md:px-8 lg:grid-rows-2 lg:h-[calc(100vh-300px)] min-h-[600px]">
 
           {/* Card 1: About */}
           <BentoCard
@@ -35,8 +35,7 @@ export default function Home() {
             colSpan={1}
             onHover={setHoveredCardName}
             href="/about"
-            // Mobile: 2 col | Tablet: 2 col | Desktop: 1 col
-            className="col-span-2 md:col-span-2 lg:col-span-1 h-[160px] md:h-[240px] lg:h-auto"
+            className="col-span-2 md:col-span-2 lg:col-span-1 h-[160px] md:h-[240px] lg:h-full"
           />
 
           {/* Card 2: Portfolio */}
@@ -45,8 +44,7 @@ export default function Home() {
             colSpan={3}
             onHover={setHoveredCardName}
             href="/portfolio"
-            // Mobile: 2 col | Tablet: 2 col | Desktop: 3 col
-            className="col-span-2 md:col-span-2 lg:col-span-3 h-[160px] md:h-[240px] lg:h-auto"
+            className="col-span-2 md:col-span-2 lg:col-span-3 h-[160px] md:h-[240px] lg:h-full"
           />
 
           {/* Card 3: experiments */}
@@ -55,8 +53,7 @@ export default function Home() {
             colSpan={2}
             onHover={setHoveredCardName}
             href="/experiments"
-            // Mobile: 1 col | Tablet: 3 col (Largo) | Desktop: 2 col
-            className="col-span-1 md:col-span-3 lg:col-span-2 h-[180px] md:h-[320px] lg:h-auto"
+            className="col-span-1 md:col-span-3 lg:col-span-2 h-[180px] md:h-[320px] lg:h-full"
           />
 
           {/* Card 4: Photo */}
@@ -66,8 +63,7 @@ export default function Home() {
             onHover={setHoveredCardName}
             noPadding
             hideTitle
-            // Mobile: 1 col | Tablet: 1 col (Quadrato) | Desktop: 1 col
-            className="col-span-1 md:col-span-1 lg:col-span-1 h-[180px] md:h-[320px] lg:h-auto"
+            className="col-span-1 md:col-span-1 lg:col-span-1 h-[180px] md:h-[320px] lg:h-full"
           >
             <Image
               src="/images/profile.webp"
@@ -78,17 +74,17 @@ export default function Home() {
           </BentoCard>
 
           {/* Card 5: Stack & Resume (IL WRAPPER) */}
-          {/* Mobile: 2 col | Tablet: 4 col (Fondo riga) | Desktop: 1 col. Sottomodello a Griglia su piccoli schermi! */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1 grid grid-cols-2 lg:flex lg:flex-col gap-[12px] md:gap-[16px] h-[180px] md:h-[200px] lg:h-auto">
+          {/* Rimosso lg:flex e lg:flex-col. Mantenuto GRID per governare lo spazio rigidly. */}
+          <div className="col-span-2 md:col-span-4 lg:col-span-1 grid grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 gap-[12px] md:gap-[16px] h-[126px] md:h-[200px] lg:h-full">
             
+            {/* STACK: Non ha più bisogno di h-full perché la grid decide. */}
             <BentoCard
               title="Stack"
               colSpan={1}
               onHover={setHoveredCardName}
               hideTitle
               noPadding
-              // h-full/w-full garantisce la simmetria millimetrica nella grid
-              className="w-full h-full lg:flex-1 lg:min-h-[142px] flex items-center justify-center overflow-hidden"
+              className="w-full flex items-center justify-center overflow-hidden"
             >
               <div 
                 className="relative w-full h-full flex items-center justify-center"
@@ -100,7 +96,7 @@ export default function Home() {
                 }}
               >
                 <motion.div
-                  className="flex gap-[20px] whitespace-nowrap pr-[20px]"
+                  className="flex gap-[12px] md:gap-[20px] whitespace-nowrap pr-[12px] md:pr-[20px]"
                   animate={{ x: ["0%", "-50%"] }}
                   transition={{
                     repeat: Infinity,
@@ -111,14 +107,14 @@ export default function Home() {
                   {[...techStack, ...techStack, ...techStack, ...techStack].map((src, index) => (
                     <div 
                       key={index} 
-                      className="flex-shrink-0 flex items-center justify-center bg-neutral-800/60 w-[80px] h-[80px] rounded-[24px]"
+                      className="flex-shrink-0 flex items-center justify-center bg-neutral-800/60 w-[56px] h-[56px] md:w-[80px] md:h-[80px] rounded-[16px] md:rounded-[24px]"
                     >
                       <Image
                         src={src}
                         alt="Tech Logo"
                         width={40}
                         height={40}
-                        className="object-contain"
+                        className="w-[28px] h-[28px] md:w-[40px] md:h-[40px] object-contain"
                       />
                     </div>
                   ))}
@@ -126,12 +122,12 @@ export default function Home() {
               </div>
             </BentoCard>
 
+            {/* RESUME: Rimosso h-full. Aggiunto !p-[16px] su mobile per non far impazzire l'altezza */}
             <BentoCard
               title="Resume"
               colSpan={1}
               onHover={setHoveredCardName}
-              // Simmetria al 50% garantita
-              className="w-full h-full lg:flex-1 lg:min-h-[142px]"
+              className="w-full !p-[16px] md:!p-[24px] lg:!p-[32px] flex flex-col justify-end"
             />
           </div>
 
