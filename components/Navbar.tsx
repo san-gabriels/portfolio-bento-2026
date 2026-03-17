@@ -5,49 +5,111 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { name: "Portfolio", href: "/portfolio" },
   { name: "About", href: "/about" },
-  { name: "experiments", href: "/experiments" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Experiments", href: "/experiments" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
 
+  // Calcoliamo la profondità della pagina per cambiare la logica del Logo
+  const segments = pathname.split("/").filter(Boolean);
+  const isHome = segments.length === 0;
+  const isLevel2 = segments.length === 1;
+  const isLevel3 = segments.length >= 2;
+
+  // Impostiamo testo e link dinamicamente
+  let logoText = "Gabriel Mihali";
+  let logoHref = "/";
+  let showArrow = false;
+
+  if (isLevel2) {
+    logoText = "Home";
+    logoHref = "/";
+    showArrow = true;
+  } else if (isLevel3) {
+    logoText = "Back";
+    logoHref = `/${segments.slice(0, -1).join("/")}`; // Torna alla cartella superiore
+    showArrow = true;
+  }
+
   return (
-    // CAMBIO QUI: Aggiunto flex-col gap-4 py-4 per il mobile, e ripristinato flex-row h-[76px] py-0 per i min-[700px]
-    <header className="absolute top-0 left-0 right-0 w-full max-w-[1600px] mx-auto min-h-[76px] py-4 min-[700px]:py-0 flex flex-col min-[700px]:flex-row justify-center min-[700px]:justify-between items-center px-4 min-[700px]:px-8 bg-transparent z-50 pointer-events-auto gap-4 min-[700px]:gap-0">
+    // Header a riga singola (senza flex-col)
+    <header className="absolute top-0 left-0 right-0 w-full max-w-[1600px] mx-auto h-[76px] flex justify-between items-center px-4 min-[700px]:px-8 bg-transparent z-50 pointer-events-auto">
       
-      {/* Logo / Nome (Centrato su mobile, a sinistra su desktop) */}
-      <div className="flex-shrink-0 flex items-center justify-center">
-        {/* rimosso translate-x-[10px] su mobile per centrarlo perfettamente */}
-        <Link href="/" className="group relative overflow-hidden inline-flex text-white font-medium text-xl tracking-tighter min-[700px]:translate-x-[10px]">
-          <span className="flex">
-            {"Gabriel Mihali".split("").map((char, index) => (
-              <span
-                key={`top-nav-${index}`}
-                className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
-                style={{ transitionDelay: `${index * 25}ms` }}
-              >
-                {char === " " ? "\u00A0" : char}
+      {/* LOGO / TASTO INDIETRO (Allineato a sinistra) */}
+      <div className="flex-shrink-0 flex items-center">
+        <Link href={logoHref} className="group flex items-center gap-2 text-white font-medium text-xl tracking-tighter transition-opacity hover:opacity-80">
+          
+          {/* Animazione originale solo per la Home, testo semplice altrimenti */}
+          {isHome ? (
+            <span className="relative overflow-hidden inline-flex min-[700px]:translate-x-[10px]">
+              <span className="flex">
+                {"Gabriel Mihali".split("").map((char, index) => (
+                  <span
+                    key={`top-nav-${index}`}
+                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
+                    style={{ transitionDelay: `${index * 25}ms` }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
               </span>
-            ))}
-          </span>
-          <span className="absolute inset-0 flex">
-            {"Gabriel Mihali".split("").map((char, index) => (
-              <span
-                key={`bottom-nav-${index}`}
-                className="transform translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
-                style={{ transitionDelay: `${index * 25}ms` }}
-              >
-                {char === " " ? "\u00A0" : char}
+              <span className="absolute inset-0 flex">
+                {"Gabriel Mihali".split("").map((char, index) => (
+                  <span
+                    key={`bottom-nav-${index}`}
+                    className="transform translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
+                    style={{ transitionDelay: `${index * 25}ms` }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
               </span>
-            ))}
-          </span>
+            </span>
+          ) : (
+            // Animazione "a onda" per Home/Back
+            <div className="relative overflow-hidden inline-flex gap-2">
+              <span className="flex items-center">
+                {showArrow && (
+                  <span className="text-white/60 group-hover:-translate-x-1 transition-transform duration-300">
+                    &lt;&mdash; {/* Freccia personalizzata */}
+                  </span>
+                )}
+                {logoText.split("").map((char, index) => (
+                  <span
+                    key={`top-nav-${index}`}
+                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
+                    style={{ transitionDelay: `${index * 25}ms` }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
+              </span>
+              <span className="absolute inset-0 flex items-center">
+                {showArrow && (
+                  <span className="text-white/60 group-hover:-translate-x-1 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                    &lt;&mdash; {/* Freccia personalizzata */}
+                  </span>
+                )}
+                {logoText.split("").map((char, index) => (
+                  <span
+                    key={`bottom-nav-${index}`}
+                    className="transform translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
+                    style={{ transitionDelay: `${index * 25}ms` }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
         </Link>
       </div>
 
-      {/* Navigazione (Centrata su mobile, a destra su desktop) */}
-      <nav className="flex space-x-2 sm:space-x-4">
+      {/* NAVIGAZIONE DESKTOP (Nascosta su Mobile grazie a "hidden min-[700px]:flex") */}
+      <nav className="hidden min-[700px]:flex space-x-1 sm:space-x-4">
         {links.map((link) => {
           const isActive = pathname === link.href;
           return (
@@ -59,14 +121,13 @@ export function Navbar() {
                 isActive ? "text-white" : "text-white/60 hover:text-white"
               )}
             >
-              {/* ANIMAZIONE A ONDA PER I LINK */}
               <div className="relative overflow-hidden inline-flex">
                 <span className="flex">
                   {link.name.split("").map((char, index) => (
                     <span
-                      key={`top-link-${link.name}-${index}`}
-                      className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
-                      style={{ transitionDelay: `${index * 20}ms` }} 
+                    key={`top-link-${link.name}-${index}`}
+                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full"
+                    style={{ transitionDelay: `${index * 20}ms` }} 
                     >
                       {char === " " ? "\u00A0" : char}
                     </span>

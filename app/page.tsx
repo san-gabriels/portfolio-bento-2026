@@ -1,6 +1,5 @@
 "use client";
 
-// 1. Assicurati che GravityText sia importato (TextReveal non ci serve più)
 import { GravityText } from "@/components/GravityText";
 import { useState } from "react";
 import Image from "next/image";
@@ -19,25 +18,25 @@ export default function Home() {
   return (
     <main className="relative z-0 w-full max-w-[1920px] mx-auto min-h-screen flex flex-col overflow-x-hidden bg-black pb-[31px] md:pb-[47px]">
       
-      {/* BACKGROUND TEXT CON GRAVITÀ (Sostituisce TextReveal) */}
       {/* BACKGROUND TEXT CON GRAVITÀ LUNARE */}
-      {/* fixed inset-0 blocca il testo a schermo intero, -z-10 lo mette in secondo piano */}
-      {/* Background Text behind Bento Cards */}
-      <div className="absolute top-[120px] md:top-[100px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
+      <div className="absolute top-[130px] md:top-[120px] left-0 w-full h-screen z-0 pointer-events-none select-none overflow-hidden">
         <GravityText key={hoveredCardName} text={hoveredCardName} />
       </div>
 
-      {/* Grid Container - Spinto in basso sotto il testo */}
-      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[250px]">
-        <div className="flex flex-col gap-[12px] pb-[16px] px-4 min-[700px]:grid min-[700px]:grid-cols-2 min-[700px]:gap-[16px] min-[700px]:px-8 lg:grid-cols-4 lg:grid-rows-2">
+      {/* Grid Container */}
+      <section className="relative z-20 mx-auto w-full max-w-[1600px] flex flex-col mt-[180px] md:mt-[240px] lg:mt-[220px]">
+        
+        {/* LA GRIGLIA: 2 colonne(mobile) -> 4 colonne(tablet) -> 4 colonne(desktop) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-[12px] md:gap-[16px] pb-[16px] px-4 md:px-8 lg:grid-rows-2">
 
           {/* Card 1: About */}
           <BentoCard
             title="About"
             colSpan={1}
             onHover={setHoveredCardName}
-            className="h-[300px] md:h-auto"
             href="/about"
+            // Mobile: 2 col | Tablet: 2 col | Desktop: 1 col
+            className="col-span-2 md:col-span-2 lg:col-span-1 h-[160px] md:h-[240px] lg:h-auto"
           />
 
           {/* Card 2: Portfolio */}
@@ -45,8 +44,9 @@ export default function Home() {
             title="Portfolio"
             colSpan={3}
             onHover={setHoveredCardName}
-            className="h-[300px] md:h-auto"
             href="/portfolio"
+            // Mobile: 2 col | Tablet: 2 col | Desktop: 3 col
+            className="col-span-2 md:col-span-2 lg:col-span-3 h-[160px] md:h-[240px] lg:h-auto"
           />
 
           {/* Card 3: experiments */}
@@ -54,8 +54,9 @@ export default function Home() {
             title="experiments"
             colSpan={2}
             onHover={setHoveredCardName}
-            className="h-[300px] md:h-auto"
             href="/experiments"
+            // Mobile: 1 col | Tablet: 3 col (Largo) | Desktop: 2 col
+            className="col-span-1 md:col-span-3 lg:col-span-2 h-[180px] md:h-[320px] lg:h-auto"
           />
 
           {/* Card 4: Photo */}
@@ -63,9 +64,10 @@ export default function Home() {
             title="Hi!"
             colSpan={1}
             onHover={setHoveredCardName}
-            className="h-[300px] md:h-auto"
             noPadding
             hideTitle
+            // Mobile: 1 col | Tablet: 1 col (Quadrato) | Desktop: 1 col
+            className="col-span-1 md:col-span-1 lg:col-span-1 h-[180px] md:h-[320px] lg:h-auto"
           >
             <Image
               src="/images/profile.webp"
@@ -75,16 +77,18 @@ export default function Home() {
             />
           </BentoCard>
 
-          {/* Card 5: Stack & Resume */}
-          <div className="md:col-span-1 flex flex-col gap-[12px] md:gap-[16px] h-[300px] md:h-auto">
+          {/* Card 5: Stack & Resume (IL WRAPPER) */}
+          {/* Mobile: 2 col | Tablet: 4 col (Fondo riga) | Desktop: 1 col. Sottomodello a Griglia su piccoli schermi! */}
+          <div className="col-span-2 md:col-span-4 lg:col-span-1 grid grid-cols-2 lg:flex lg:flex-col gap-[12px] md:gap-[16px] h-[180px] md:h-[200px] lg:h-auto">
             
             <BentoCard
               title="Stack"
               colSpan={1}
               onHover={setHoveredCardName}
-              className="flex-1 min-h-[142px] flex items-center justify-center overflow-hidden"
               hideTitle
               noPadding
+              // h-full/w-full garantisce la simmetria millimetrica nella grid
+              className="w-full h-full lg:flex-1 lg:min-h-[142px] flex items-center justify-center overflow-hidden"
             >
               <div 
                 className="relative w-full h-full flex items-center justify-center"
@@ -126,7 +130,8 @@ export default function Home() {
               title="Resume"
               colSpan={1}
               onHover={setHoveredCardName}
-              className="flex-1 min-h-[142px]"
+              // Simmetria al 50% garantita
+              className="w-full h-full lg:flex-1 lg:min-h-[142px]"
             />
           </div>
 
