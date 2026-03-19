@@ -36,7 +36,7 @@ export default function App() {
   
   const { scrollYProgress } = useScroll({
     target: textRef,
-    offset: ["start end", "end start"],
+    offset: ["start 90%", "start 10%"],
   });
 
   const text = "A collection of creative coding, 3D explorations, and visual experiments.";
@@ -66,8 +66,8 @@ export default function App() {
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-8">
         
         {/* Titolo con effetto Reveal allo scroll */}
-        <section ref={textRef} className="max-w-4xl mb-16 md:mb-24">
-          <h1 className="text-3xl md:text-5xl lg:text-[60px] font-medium leading-[1.1] tracking-tight flex flex-wrap">
+        <section ref={textRef} className="w-full mb-16 md:mb-24">
+          <h1 className="text-3xl md:text-5xl lg:text-[48px] font-medium leading-[1.1] tracking-tight flex flex-wrap w-full">
             {words.map((word, i) => {
               const start = i / words.length;
               const end = start + (3 / words.length);

@@ -8,9 +8,9 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 const PROJECTS = [
   {
     id: 1,
-    title: "Travel Easy",
-    category: "App Design",
-    slug: "travel-easy",
+    title: "C.NEXT Corporate Hub",
+    category: "Custom Web Architecture and Development",
+    slug: "cnext-hub",
     image: "/images/travel-easy.webp", 
     colSpan: 1,
   },
@@ -65,15 +65,15 @@ export default function PortfolioPage() {
   
   const { scrollYProgress } = useScroll({
     target: textRef,
-    offset: ["start 90%", "start 30%"],
+    offset: ["start 90%", "start 10%"],
   });
 
   return (
     <div className="min-h-screen bg-black text-white w-full flex flex-col pt-[120px] lg:pt-[160px] pb-24">
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8">
         
-        <section ref={textRef} className="max-w-4xl mb-16 md:mb-24">
-          <h1 className="text-3xl md:text-5xl lg:text-[60px] font-medium leading-[1.1] tracking-tight flex flex-wrap">
+        <section ref={textRef} className="w-full mb-16 md:mb-24">
+          <h1 className="text-3xl md:text-5xl lg:text-[48px] font-medium leading-[1.1] tracking-tight flex flex-wrap">
             {words.map((word, i) => {
               const start = i / words.length;
               const end = start + (3 / words.length);
