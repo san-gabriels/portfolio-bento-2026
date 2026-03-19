@@ -25,7 +25,7 @@ const PROJECTS_DB = {
     title: "C.NEXT Corporate Hub",
     category: "Custom WordPress Architecture & AI-Assisted Development",
     websiteUrl: "#",
-    heroImage: "/images/travel-easy.webp",
+    heroImage: "https://assets.gabrielmihali.com/image001-head.webp",
     seqImage1: "/images/frame.webp",
     seqImage2: "/images/stream-ai.webp",
     preGridImage: "/images/travel-easy.webp",
