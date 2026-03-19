@@ -39,8 +39,8 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           )}
         </div>
 
-        {/* HERO IMAGE */}
-        <div className="relative w-full aspect-video md:aspect-[21/9] rounded-[24px] md:rounded-[32px] overflow-hidden mb-16 md:mb-24 border border-white/5">
+        {/* HERO IMAGE (Aumentata in altezza a 4:3 per rispettare le tue esportazioni) */}
+        <div className="relative w-full aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden mb-16 md:mb-24 border border-white/5">
           <Image src={project.heroImage} alt={`${project.title} Cover`} fill className="object-cover" priority />
         </div>
 
@@ -57,10 +57,13 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           </div>
         </div>
 
-        {/* IMMAGINI IN SEQUENZA */}
+        {/* IMMAGINI IN SEQUENZA (Ora sono due, una sotto l'altra) */}
         <div className="flex flex-col gap-4 md:gap-8 mb-24 md:mb-40">
-          <div className="relative w-full aspect-[4/3] md:aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
+          <div className="relative w-full aspect-[4/3] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
             <Image src={project.seqImage1} alt="Details 1" fill className="object-cover" />
+          </div>
+          <div className="relative w-full aspect-[4/3] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
+            <Image src={project.seqImage2} alt="Details 2" fill className="object-cover" />
           </div>
         </div>
       </div>
@@ -95,6 +98,11 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
             <div className="md:col-span-4 text-white/50 text-sm md:text-base">Results</div>
             <div className="md:col-span-8 lg:col-span-6 text-sm md:text-base text-white/90 leading-relaxed">{project.results}</div>
           </div>
+        </div>
+
+        {/* NUOVA IMMAGINE FULL WIDTH (Prima del 50/50) */}
+        <div className="relative w-full aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5 mb-4 md:mb-8">
+          <Image src={project.preGridImage} alt="Pre-Grid Full Width" fill className="object-cover" />
         </div>
 
         {/* IMMAGINI DIVISE 50/50 */}
