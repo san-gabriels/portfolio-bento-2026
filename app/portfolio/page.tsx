@@ -16,9 +16,9 @@ const PROJECTS = [
   },
   {
     id: 2,
-    title: "Gamma",
-    category: "UX/UI Design",
-    slug: "gamma",
+    title: "C.NEXT Digital Ecosystem",
+    category: "Platform Scaling & Data Analytics",
+    slug: "cnext-system",
     image: "/images/gamma.webp",
     colSpan: 1,
   },

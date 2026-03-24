@@ -3,23 +3,23 @@ import ProjectClient from "./ProjectClient";
 
 // 1. IL NOSTRO MINI-DATABASE
 const PROJECTS_DB = {
-  "gamma": {
-    title: "Gamma",
-    category: "UX/UI Design",
-    websiteUrl: "https://google.com",
+  "cnext-system": {
+    title: "C.NEXT Digital Ecosystem",
+    category: "Platform Scaling & Data Analytics",
+    websiteUrl: "#",
     heroImage: "/images/frame.webp", 
     seqImage1: "/images/edfaost.webp",
     seqImage2: "/images/stream-ai.webp",
     preGridImage: "/images/travel-easy.webp",
     gridImageLeft: "/images/stream-ai.webp",
     gridImageRight: "/images/travel-easy.webp",
-    intro: "Gamma is an AI-powered platform that helps users create professional presentations, documents, and web pages effortlessly. As the product designer leading the website redesign, my goal was to enhance usability, improve conversion rates, and better communicate Gamma's unique value proposition.",
-    client: "David B.",
-    role: "UX Designer",
-    year: "2022",
-    challenge: "The project faced multiple hurdles that impacted user engagement and conversions. First, the website had a high bounce rate, with many visitors leaving without exploring key features or signing up. Second, the messaging failed to immediately convey Gamma's AI-powered advantages.",
-    objective: "The primary objective was to create a website that clearly communicated Gamma's value, improved user engagement, and increased conversions.",
-    results: "The redesign delivered strong outcomes, validating the strategic improvements. Sign-up conversions increased by 30%, thanks to clearer value propositions and strategically placed CTAs."
+    intro: "Scaling a successful digital architecture requires more than just cloning a website; it demands a unified strategy for performance and tracking. For the C.NEXT ecosystem, I deployed multiple subdomains focusing purely on data accuracy and extreme optimization. By implementing rigorous GA4 tracking and prioritizing Core Web Vitals, I transformed these satellite sites into highly measurable, lightning-fast marketing assets.",
+    client: "C.NEXT Ivrea & C.NEXT Piceno",
+    role: "Web Master & Digital Analyst",
+    year: "2022 - Present",
+    challenge: "Replicate the core architecture across multiple subdomains while maintaining peak technical performance. The main goal was to establish a unified, granular tracking system across the entire ecosystem to map user journeys and measure campaign effectiveness precisely.",
+    objective: "Deploy new ecosystem nodes optimizing for Core Web Vitals and Technical SEO. Implement an advanced Google Analytics 4 (GA4) and Google Tag Manager setup to track cross-domain conversions and provide actionable data for the marketing department.",
+    results: "Successfully launched the subdomains with top-tier PageSpeed scores. The deep data analysis and reliable conversion tracking directly guided the optimization of corporate email marketing campaigns, achieving outstanding results: a 52% Open Rate and a 3.2% Click-Through Rate (CTR)."
   },
   "cnext-hub": {
     title: "C.NEXT Corporate Hub",
@@ -41,7 +41,7 @@ const PROJECTS_DB = {
   },
 };
 
-const PROJECT_ORDER = ["cnext-hub", "gamma", "stream-ai", "frame", "edfaost"];
+const PROJECT_ORDER = ["cnext-hub", "cnext-system", "stream-ai", "frame", "edfaost"];
 
 // 2. LA MAGIA: Genera le pagine in modo statico al momento del build (SSG)
 export function generateStaticParams() {
