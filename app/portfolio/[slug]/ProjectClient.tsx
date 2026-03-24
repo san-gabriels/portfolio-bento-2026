@@ -1,10 +1,30 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-// Definiamo cosa si aspetta di ricevere questo componente
+// --- IL MOTORE DEL PARALLASSE ---
+function ParallaxImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
+  return (
+    <div ref={ref} className="absolute inset-0 w-full h-full overflow-hidden rounded-[inherit]">
+      <motion.div style={{ y, scale: 1.15 }} className="relative w-full h-full">
+        <Image src={src} alt={alt} fill className="object-cover" priority={priority} />
+      </motion.div>
+    </div>
+  );
+}
+
+// --- IL COMPONENTE PRINCIPALE DELLA PAGINA ---
 interface ProjectClientProps {
   project: any;
   prevSlug: string;
@@ -39,9 +59,9 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           )}
         </div>
 
-        {/* HERO IMAGE (Aumentata in altezza a 4:3 per rispettare le tue esportazioni) */}
+        {/* HERO IMAGE */}
         <div className="relative w-full aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden mb-16 md:mb-24 border border-white/5">
-          <Image src={project.heroImage} alt={`${project.title} Cover`} fill className="object-cover" priority />
+          <ParallaxImage src={project.heroImage} alt={`${project.title} Cover`} priority={true} />
         </div>
 
         {/* INTRO E DATI */}
@@ -57,19 +77,19 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           </div>
         </div>
 
-        {/* IMMAGINI IN SEQUENZA (Ora sono due, una sotto l'altra) */}
+        {/* IMMAGINI IN SEQUENZA */}
         <div className="flex flex-col gap-4 md:gap-8 mb-24 md:mb-40">
           <div className="relative w-full aspect-[4/3] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
-            <Image src={project.seqImage1} alt="Details 1" fill className="object-cover" />
+            <ParallaxImage src={project.seqImage1} alt="Details 1" />
           </div>
           <div className="relative w-full aspect-[4/3] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
-            <Image src={project.seqImage2} alt="Details 2" fill className="object-cover" />
+            <ParallaxImage src={project.seqImage2} alt="Details 2" />
           </div>
         </div>
       </div>
 
       {/* MARQUEE SCORREVOLE */}
-      <div className="w-full overflow-hidden border-y border-white/10 py-6 md:py-8 mb-24 md:mb-40 flex items-center bg-white/[0.02]">
+      <div className="w-full overflow-hidden py-6 md:py-8 mb-24 md:mb-40 flex items-center bg-white/[0.02]">
         <motion.div
           className="flex whitespace-nowrap gap-8 text-4xl md:text-7xl font-medium tracking-tighter text-white uppercase"
           animate={{ x: ["0%", "-50%"] }}
@@ -100,18 +120,18 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           </div>
         </div>
 
-        {/* NUOVA IMMAGINE FULL WIDTH (Prima del 50/50) */}
+        {/* NUOVA IMMAGINE FULL WIDTH */}
         <div className="relative w-full aspect-[16/9] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5 mb-4 md:mb-8">
-          <Image src={project.preGridImage} alt="Pre-Grid Full Width" fill className="object-cover" />
+          <ParallaxImage src={project.preGridImage} alt="Pre-Grid Full Width" />
         </div>
 
         {/* IMMAGINI DIVISE 50/50 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-24 md:mb-40">
           <div className="relative w-full aspect-[4/5] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
-            <Image src={project.gridImageLeft} alt="Detail Left" fill className="object-cover" />
+            <ParallaxImage src={project.gridImageLeft} alt="Detail Left" />
           </div>
           <div className="relative w-full aspect-[4/5] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/5">
-            <Image src={project.gridImageRight} alt="Detail Right" fill className="object-cover" />
+            <ParallaxImage src={project.gridImageRight} alt="Detail Right" />
           </div>
         </div>
 
