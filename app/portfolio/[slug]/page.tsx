@@ -27,7 +27,7 @@ const PROJECTS_DB = {
     websiteUrl: "#",
     heroImage: "https://assets.gabrielmihali.com/image001-head.webp",
     seqImage1: "https://assets.gabrielmihali.com/image102.webp",
-    seqImage2: "/images/stream-ai.webp",
+    seqImage2: "https://assets.gabrielmihali.com/image103.webp",
     preGridImage: "/images/travel-easy.webp",
     gridImageLeft: "/images/edfaost.webp",
     gridImageRight: "/images/stream-ai.webp",
