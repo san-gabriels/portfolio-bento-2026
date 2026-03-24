@@ -26,7 +26,7 @@ const PROJECTS_DB = {
     category: "Custom WordPress Architecture & AI-Assisted Development",
     websiteUrl: "#",
     heroImage: "https://assets.gabrielmihali.com/image001-head.webp",
-    seqImage1: "/images/frame.webp",
+    seqImage1: "https://assets.gabrielmihali.com/image102.webp",
     seqImage2: "/images/stream-ai.webp",
     preGridImage: "/images/travel-easy.webp",
     gridImageLeft: "/images/edfaost.webp",
