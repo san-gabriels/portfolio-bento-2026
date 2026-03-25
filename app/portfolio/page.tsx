@@ -19,7 +19,7 @@ const PROJECTS = [
     title: "C.NEXT Digital Ecosystem",
     category: "Platform Scaling & Data Analytics",
     slug: "cnext-system",
-    image: "/images/gamma.webp",
+    image: "https://assets.gabrielmihali.com/image201-head.webp",
     colSpan: 1,
   },
   {

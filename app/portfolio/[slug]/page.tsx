@@ -7,7 +7,7 @@ const PROJECTS_DB = {
     title: "C.NEXT Digital Ecosystem",
     category: "Platform Scaling & Data Analytics",
     websiteUrl: "#",
-    heroImage: "/images/frame.webp", 
+    heroImage: "https://assets.gabrielmihali.com/image201-head.webp", 
     seqImage1: "/images/edfaost.webp",
     seqImage2: "/images/stream-ai.webp",
     preGridImage: "/images/travel-easy.webp",
