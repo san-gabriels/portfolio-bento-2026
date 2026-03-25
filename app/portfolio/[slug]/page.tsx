@@ -10,7 +10,7 @@ const PROJECTS_DB = {
     heroImage: "https://assets.gabrielmihali.com/image201-head.webp", 
     seqImage1: "https://assets.gabrielmihali.com/image202.webp",
     seqImage2: "https://assets.gabrielmihali.com/image203.webp",
-    preGridImage: "/images/travel-easy.webp",
+    preGridImage: "https://assets.gabrielmihali.com/image204.webp",
     gridImageLeft: "/images/stream-ai.webp",
     gridImageRight: "/images/travel-easy.webp",
     intro: "Scaling a successful digital architecture requires more than just cloning a website; it demands a unified strategy for performance and tracking. For the C.NEXT ecosystem, I deployed multiple subdomains focusing purely on data accuracy and extreme optimization. By implementing rigorous GA4 tracking and prioritizing Core Web Vitals, I transformed these satellite sites into highly measurable, lightning-fast marketing assets.",
