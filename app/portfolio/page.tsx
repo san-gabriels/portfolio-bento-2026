@@ -24,8 +24,8 @@ const PROJECTS = [
   },
   {
     id: 3,
-    title: "Stream AI",
-    category: "Product Design",
+    title: "Technical Direction & Live Streaming Events",
+    category: "Broadcast Architecture, VIP Management & Post-Event Marketing",
     slug: "streamyard",
     image: "/images/stream-ai.webp",
     colSpan: 2, 
