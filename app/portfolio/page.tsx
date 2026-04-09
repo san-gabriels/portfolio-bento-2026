@@ -26,7 +26,7 @@ const PROJECTS = [
     id: 3,
     title: "Stream AI",
     category: "Product Design",
-    slug: "stream-ai",
+    slug: "streamyard",
     image: "/images/stream-ai.webp",
     colSpan: 2, 
   },
