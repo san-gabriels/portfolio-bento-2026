@@ -44,7 +44,7 @@ const PROJECTS_DB = {
     category: "Broadcast Architecture and Post-Event Marketing",
     websiteUrl: "#",
     heroImage: "https://assets.gabrielmihali.com/image301.webp",
-    seqImage1: "https://assets.gabrielmihali.com/image102.webp",
+    seqImage1: "https://assets.gabrielmihali.com/image302.webp",
     seqImage2: "https://assets.gabrielmihali.com/image103.webp",
     preGridImage: "https://assets.gabrielmihali.com/image104.webp",
     gridImageLeft: "https://assets.gabrielmihali.com/image105.webp",
