@@ -24,10 +24,10 @@ const PROJECTS = [
   },
   {
     id: 3,
-    title: "Technical Direction & Live Streaming Events",
-    category: "Broadcast Architecture, VIP Management & Post-Event Marketing",
+    title: "Technical Direction and Live Streaming Events",
+    category: "Broadcast Architecture and Post-Event Marketing",
     slug: "streamyard",
-    image: "/images/stream-ai.webp",
+    image: "https://assets.gabrielmihali.com/image301.webp",
     colSpan: 2, 
   },
   {

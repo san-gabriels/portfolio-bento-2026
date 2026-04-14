@@ -40,10 +40,10 @@ const PROJECTS_DB = {
     results: "Successfully launched the subdomains with top-tier PageSpeed scores. The deep data analysis and reliable conversion tracking directly guided the optimization of corporate email marketing campaigns, achieving outstanding results: a 52% Open Rate and a 3.2% Click-Through Rate (CTR)."
   },
   "streamyard": {
-    title: "Technical Direction & Live Streaming Events",
-    category: "Broadcast Architecture, VIP Management & Post-Event Marketing",
+    title: "Technical Direction and Live Streaming Events",
+    category: "Broadcast Architecture and Post-Event Marketing",
     websiteUrl: "#",
-    heroImage: "https://assets.gabrielmihali.com/image001-head.webp",
+    heroImage: "https://assets.gabrielmihali.com/image301.webp",
     seqImage1: "https://assets.gabrielmihali.com/image102.webp",
     seqImage2: "https://assets.gabrielmihali.com/image103.webp",
     preGridImage: "https://assets.gabrielmihali.com/image104.webp",
