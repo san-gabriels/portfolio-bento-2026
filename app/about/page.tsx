@@ -48,7 +48,7 @@ export default function AboutPage() {
   // Finisce quando la parte bassa del testo è al 50% dello schermo (al centro)
   const { scrollYProgress } = useScroll({
     target: textRef,
-    offset: ["start 50%", "end 15%"],
+    offset: ["start 75%", "end 35%"],
   });
 
   return (
