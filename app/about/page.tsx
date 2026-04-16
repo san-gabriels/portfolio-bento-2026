@@ -116,13 +116,13 @@ export default function AboutPage() {
       <section className="w-full overflow-hidden mb-32 md:mb-48">
         <div className="relative flex whitespace-nowrap">
           <motion.div
-            className="flex text-[10vw] uppercase font-bold tracking-tighter"
+            className="flex text-[10vw] uppercase font-medium tracking-tighter"
             animate={{ x: ["0%", "-50%"] }}
             transition={{ repeat: Infinity, ease: "linear", duration: 80 }} // Velocità rallentata (40s)
           >
             {/* Array moltiplicato per 4 per assicurare lo scorrimento continuo su schermi ultra-wide */}
             {[...Array(4)].map((_, i) => (
-              <span key={i} className="pr-8">DESIGN • ART DIRECTION • FRAMER DEVELOPMENT • </span>
+              <span key={i} className="pr-8">DIGITAL INFRASTRUCTURE • SCALABLE WEB ECOSYSTEMS • ADVANCED GA4 ANALYTICS • CORE WEB VITALS • LOGIC-DRIVEN ARCHITECTURE • CUSTOM AI INTEGRATIONS • TECHNICAL SEO</span>
             ))}
           </motion.div>
         </div>

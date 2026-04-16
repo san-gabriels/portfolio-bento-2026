@@ -95,10 +95,10 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
         >
-          <span>· EXPLORE THE FULL STORY</span>
-          <span>· EXPLORE THE FULL STORY</span>
-          <span>· EXPLORE THE FULL STORY</span>
-          <span>· EXPLORE THE FULL STORY</span>
+          <span>• EXPLORE THE FULL STORY</span>
+          <span>• EXPLORE THE FULL STORY</span>
+          <span>• EXPLORE THE FULL STORY</span>
+          <span>• EXPLORE THE FULL STORY</span>
         </motion.div>
       </div>
 
