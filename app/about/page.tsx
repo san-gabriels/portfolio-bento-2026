@@ -6,26 +6,26 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 const EXPERIENCE_DATA = [
   {
-    year: "2023 - Present",
-    role: "Senior Art Director",
-    company: "Creative Studio",
-    description: "Leading digital experiences, defining visual languages and pushing the boundaries of interactive web design for global brands.",
+    year: "2021 - Present",
+    role: "Digital Infrastructure Architect and Web Analytics Lead",
+    company: "C.NEXT Spa",
+    description: "Designing and scaling data-driven web ecosystems. Driving technical SEO strategies and advanced GA4 tracking to optimize conversion flows, while leveraging algorithmic workflows to accelerate custom web development without compromising structural stability.",
   },
   {
-    year: "2020 - 2023",
-    role: "Lead Designer",
-    company: "Digital Agency",
-    description: "Spearheaded user interface design, prototyping, and cross-functional team collaboration to deliver award-winning products.",
+    year: "2019 - 2021",
+    role: "Technical Web Specialist and Broadcast Architect",
+    company: "ComoNExT - Innovation Hub",
+    description: "Managed digital legacy systems with a strong focus on technical SEO and structural maintenance. Simultaneously directed over 35 high-stakes, broadcast-quality live events, ensuring flawless real-time technical operations and seamless VIP stakeholder coordination.",
   },
   {
-    year: "2018 - 2020",
-    role: "Framer Developer",
-    company: "Tech Startup",
-    description: "Developed high-performance animations and interaction systems, bridging the gap between static design and fully interactive code.",
+    year: "2014 - 2019",
+    role: "Academic Foundations: Philosophy and Digital Design",
+    company: "Università degli Studi di Milano and Politecnico di Milano",
+    description: "Graduated Cum Laude in Philosophy with a thesis on Information Epistemology, followed by a Master's in Cultural Enterprise Design. Forged the rigorous critical thinking and logical frameworks now directly applied to web architecture and data analytics.",
   },
 ];
 
-const PARAGRAPH = "I am a multidisciplinary designer and creative developer focused on crafting immersive digital experiences. I believe in the power of motion, typography, and precise grid systems to tell compelling stories. With a background in both art direction and technical implementation, I bridge the gap between imagination and reality, building products that are as functional as they are beautiful.";
+const PARAGRAPH = "Crafting scalable web ecosystems means turning complex business challenges into measurable digital platforms. As a Digital Infrastructure Architect, my focus is on designing data-driven web experiences rather than just building standard websites. This approach is deeply rooted in my academic background in Information Philosophy. Understanding the epistemic relationship between raw data, structured information, and actionable knowledge provides a rigorous logical framework for web architecture and technical SEO. By seamlessly integrating advanced algorithmic workflows into the process, deployment and performance are significantly accelerated, always keeping human critical thinking at the core of every project.";
 
 const words = PARAGRAPH.split(" ");
 
