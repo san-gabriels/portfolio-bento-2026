@@ -93,7 +93,7 @@ export default function ProjectClient({ project, prevSlug, nextSlug }: ProjectCl
         <motion.div
           className="flex whitespace-nowrap gap-8 text-4xl md:text-7xl font-medium tracking-tighter text-white uppercase"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 1500 }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 100 }}
         >
           <span>{project.marqueeText}</span>
           <span>{project.marqueeText}</span>
