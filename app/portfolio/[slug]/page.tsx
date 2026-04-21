@@ -60,7 +60,7 @@ const PROJECTS_DB = {
     results: "Successfully directed over 35 zero-downtime live events, establishing a highly professional digital and authoritative presence for the Hub. The end-to-end management—from technical setup to post-event lead nurturing—resulted in a flawless VIP guest experience and maximized audience retention across both live and on-demand formats.",
     marqueeText: "• REAL-TIME BROADCASTING • VIP STAKEHOLDER MANAGEMENT • ZERO-DOWNTIME OPERATIONS • TECHNICAL DIRECTION • POST-EVENT ANALYTICS"
   },
-  "Internal B2B Platform": {
+  "internal-b2b-platform": {
     title: "Full-Stack WordPress Development (Staging Environment)",
     category: "Custom Web Architecture",
     websiteUrl: "#",
