@@ -6,7 +6,7 @@ const PROJECTS_DB = {
   "cnext-hub": {
     title: "C.NEXT Corporate Hub",
     category: "Custom WordPress Architecture and AI-Assisted Development",
-    websiteUrl: "#",
+    websiteUrl: "https://cnexthub.com",
     heroImage: "https://assets.gabrielmihali.com/image103.webp",
     seqImage1: "https://assets.gabrielmihali.com/image102.webp",
     seqImage2: "https://assets.gabrielmihali.com/image001-head.webp",
@@ -60,9 +60,28 @@ const PROJECTS_DB = {
     results: "Successfully directed over 35 zero-downtime live events, establishing a highly professional digital and authoritative presence for the Hub. The end-to-end management—from technical setup to post-event lead nurturing—resulted in a flawless VIP guest experience and maximized audience retention across both live and on-demand formats.",
     marqueeText: "• REAL-TIME BROADCASTING • VIP STAKEHOLDER MANAGEMENT • ZERO-DOWNTIME OPERATIONS • TECHNICAL DIRECTION • POST-EVENT ANALYTICS"
   },
+  "Internal B2B Platform": {
+    title: "Full-Stack WordPress Development (Staging Environment)",
+    category: "Custom Web Architecture",
+    websiteUrl: "#",
+    heroImage: "https://assets.gabrielmihali.com/image301.webp",
+    seqImage1: "https://assets.gabrielmihali.com/image302.webp",
+    seqImage2: "https://assets.gabrielmihali.com/image303.webp",
+    preGridImage: "https://assets.gabrielmihali.com/image304.webp",
+    gridImageLeft: "https://assets.gabrielmihali.com/image305.webp",
+    gridImageRight: "https://assets.gabrielmihali.com/image306.webp",
+    intro: "Not all digital architectures reach the public domain, but the technical execution remains a testament to foundational skills. Developed entirely from a blank canvas, this unreleased corporate portal serves as a comprehensive showcase of from-scratch web development. Deployed to a fully functional staging environment, it highlights my ability to engineer a complete, custom WordPress infrastructure independently.",
+    client: "ComoNExT Innovation Hub",
+    role: "Lead Web Developer and Solutions Architect",
+    year: "2021-2022",
+    challenge: "Building a highly customized, robust web architecture from absolute scratch. The challenge was translating complex corporate requirements into a tangible, fully functional digital environment without relying on pre-existing frameworks, ensuring the platform was production-ready from a technical standpoint.",
+    objective: "Deliver a complete, scalable WordPress portal to the staging phase. Focus heavily on clean backend configuration, custom front-end development, and setting up a secure, dummy-proof management environment for future stakeholders.",
+    results: "Successfully engineered and delivered the fully functional platform to the staging environment. While corporate strategic shifts kept the project internal, the resulting architecture stands as a fully operational benchmark of custom development, UI execution, and structural web engineering.",
+    marqueeText: "• FROM-SCRATCH DEVELOPMENT • STAGING ENVIRONMENT • CUSTOM ARCHITECTURE • FRONT-END EXECUTION • CONFIDENTIAL PROJECT"
+  },
 };
 
-const PROJECT_ORDER = ["cnext-hub", "cnext-system", "streamyard", "frame", "edfaost"];
+const PROJECT_ORDER = ["cnext-hub", "cnext-system", "streamyard", "Internal B2B Platform", "edfaost"];
 
 // 2. LA MAGIA: Genera le pagine in modo statico al momento del build (SSG)
 export function generateStaticParams() {

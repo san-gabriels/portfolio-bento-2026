@@ -32,9 +32,9 @@ const PROJECTS = [
   },
   {
     id: 4,
-    title: "Frame",
-    category: "Web Design",
-    slug: "frame",
+    title: "Internal B2B Platform",
+    category: "Full-Stack WordPress Development (Staging Environment)",
+    slug: "internal-b2b-platform",
     image: "/images/frame.webp",
     colSpan: 1,
   },
