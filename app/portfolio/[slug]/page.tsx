@@ -19,7 +19,8 @@ const PROJECTS_DB = {
     year: "2021",
     challenge: "Build a scalable corporate portal from scratch while bypassing the heavy limitations of standard page builders. The crucial technical hurdle was creating a completely foolproof, customized backend environment allowing non-technical staff to manage complex content without breaking the frontend layout.",
     objective: "Develop a robust WordPress architecture utilizing custom plugins and AI-assisted coding (LLMs) to accelerate feature deployment. Design a seamless, intuitive backend UI tailored for the marketing and editorial teams.",
-    results: "Delivered a highly scalable and stable main portal. The custom 'dummy-proof' backend drastically reduced content management errors by the internal team, while AI-driven code refactoring minimized bug resolution times and accelerated the rollout of custom functionalities."
+    results: "Delivered a highly scalable and stable main portal. The custom 'dummy-proof' backend drastically reduced content management errors by the internal team, while AI-driven code refactoring minimized bug resolution times and accelerated the rollout of custom functionalities.",
+    marqueeText: "• CUSTOM WORDPRESS ARCHITECTURE • AI-ASSISTED DEVELOPMENT • DUMMY-PROOF BACKEND • SCALABLE SOLUTIONS • LOGIC-DRIVEN FRAMEWORKS"
   },
   "cnext-system": {
     title: "C.NEXT Digital Ecosystem",
@@ -37,7 +38,8 @@ const PROJECTS_DB = {
     year: "2022 - Present",
     challenge: "Replicate the core architecture across multiple subdomains while maintaining peak technical performance. The main goal was to establish a unified, granular tracking system across the entire ecosystem to map user journeys and measure campaign effectiveness precisely.",
     objective: "Deploy new ecosystem nodes optimizing for Core Web Vitals and Technical SEO. Implement an advanced Google Analytics 4 (GA4) and Google Tag Manager setup to track cross-domain conversions and provide actionable data for the marketing department.",
-    results: "Successfully launched the subdomains with top-tier PageSpeed scores. The deep data analysis and reliable conversion tracking directly guided the optimization of corporate email marketing campaigns, achieving outstanding results: a 52% Open Rate and a 3.2% Click-Through Rate (CTR)."
+    results: "Successfully launched the subdomains with top-tier PageSpeed scores. The deep data analysis and reliable conversion tracking directly guided the optimization of corporate email marketing campaigns, achieving outstanding results: a 52% Open Rate and a 3.2% Click-Through Rate (CTR).",
+    marqueeText: "• ADVANCED GA4 TRACKING • CORE WEB VITALS • TECHNICAL SEO • CONVERSION RATE OPTIMIZATION • PERFORMANCE SCALING"
   },
   "streamyard": {
     title: "Technical Direction and Live Streaming Events",
@@ -55,7 +57,8 @@ const PROJECTS_DB = {
     year: "2021-present",
     challenge: "Orchestrating 35+ high-profile webinars requiring flawless real-time technical execution without a dedicated broadcast team. The core challenge was managing the entire event lifecycle simultaneously: coordinating VIP guests, synchronizing private live streams with public YouTube VODs, and troubleshooting live technical issues under extreme pressure.",
     objective: "Deliver broadcast-quality live streams by heavily customizing the StreamYard studio to match the corporate brand identity. Seamlessly manage guest onboarding, real-time comment moderation, multimedia presentation flows, and post-webinar engagement through automated follow-up campaigns.",
-    results: "Successfully directed over 35 zero-downtime live events, establishing a highly professional digital and authoritative presence for the Hub. The end-to-end management—from technical setup to post-event lead nurturing—resulted in a flawless VIP guest experience and maximized audience retention across both live and on-demand formats."
+    results: "Successfully directed over 35 zero-downtime live events, establishing a highly professional digital and authoritative presence for the Hub. The end-to-end management—from technical setup to post-event lead nurturing—resulted in a flawless VIP guest experience and maximized audience retention across both live and on-demand formats.",
+    marqueeText: "• REAL-TIME BROADCASTING • VIP STAKEHOLDER MANAGEMENT • ZERO-DOWNTIME OPERATIONS • TECHNICAL DIRECTION • POST-EVENT ANALYTICS"
   },
 };
 
