@@ -35,7 +35,7 @@ const PROJECTS = [
     title: "Internal B2B Platform",
     category: "Full-Stack WordPress Development (Staging Environment)",
     slug: "internal-b2b-platform",
-    image: "/images/frame.webp",
+    image: "https://assets.gabrielmihali.com/image401.webp",
     colSpan: 1,
   },
   {

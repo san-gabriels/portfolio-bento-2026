@@ -64,7 +64,7 @@ const PROJECTS_DB = {
     title: "Full-Stack WordPress Development (Staging Environment)",
     category: "Custom Web Architecture",
     websiteUrl: "#",
-    heroImage: "https://assets.gabrielmihali.com/image301.webp",
+    heroImage: "https://assets.gabrielmihali.com/image401.webp",
     seqImage1: "https://assets.gabrielmihali.com/image302.webp",
     seqImage2: "https://assets.gabrielmihali.com/image303.webp",
     preGridImage: "https://assets.gabrielmihali.com/image304.webp",
