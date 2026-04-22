@@ -65,7 +65,7 @@ const PROJECTS_DB = {
     category: "Custom Web Architecture",
     websiteUrl: "#",
     heroImage: "https://assets.gabrielmihali.com/image401.webp",
-    seqImage1: "https://assets.gabrielmihali.com/image302.webp",
+    seqImage1: "https://assets.gabrielmihali.com/image402.webp",
     seqImage2: "https://assets.gabrielmihali.com/image303.webp",
     preGridImage: "https://assets.gabrielmihali.com/image304.webp",
     gridImageLeft: "https://assets.gabrielmihali.com/image305.webp",
