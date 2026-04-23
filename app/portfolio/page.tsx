@@ -43,7 +43,7 @@ const PROJECTS = [
     title: "Multi-Hub CRM and Marketing Automation",
     category: "Marketing Automation and System Integration",
     slug: "multi-hub-automation",
-    image: "/images/edfaost.webp",
+    image: "https://assets.gabrielmihali.com/image501.webp",
     colSpan: 1,
   },
 ];

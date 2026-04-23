@@ -83,7 +83,7 @@ const PROJECTS_DB = {
     title: "Multi-Hub CRM and Marketing Automation",
     category: "Marketing Automation and System Integration",
     websiteUrl: "#",
-    heroImage: "https://assets.gabrielmihali.com/image401.webp",
+    heroImage: "https://assets.gabrielmihali.com/image501.webp",
     seqImage1: "https://assets.gabrielmihali.com/image402.webp",
     seqImage2: "https://assets.gabrielmihali.com/image403.webp",
     preGridImage: "https://assets.gabrielmihali.com/image404.webp",
