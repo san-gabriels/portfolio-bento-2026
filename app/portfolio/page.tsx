@@ -40,9 +40,9 @@ const PROJECTS = [
   },
   {
     id: 5,
-    title: "Edfaost",
-    category: "Visual Design",
-    slug: "edfaost",
+    title: "Multi-Hub CRM and Marketing Automation",
+    category: "Marketing Automation and System Integration",
+    slug: "multi-hub-automation",
     image: "/images/edfaost.webp",
     colSpan: 1,
   },

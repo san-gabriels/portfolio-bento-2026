@@ -79,9 +79,28 @@ const PROJECTS_DB = {
     results: "Successfully engineered and delivered the fully functional platform to the staging environment. While corporate strategic shifts kept the project internal, the resulting architecture stands as a fully operational benchmark of custom development, UI execution, and structural web engineering.",
     marqueeText: "• FROM-SCRATCH DEVELOPMENT • STAGING ENVIRONMENT • CUSTOM ARCHITECTURE • FRONT-END EXECUTION • CONFIDENTIAL PROJECT"
   },
+  "multi-hub-automation": {
+    title: "Multi-Hub CRM and Marketing Automation",
+    category: "Marketing Automation and System Integration",
+    websiteUrl: "#",
+    heroImage: "https://assets.gabrielmihali.com/image401.webp",
+    seqImage1: "https://assets.gabrielmihali.com/image402.webp",
+    seqImage2: "https://assets.gabrielmihali.com/image403.webp",
+    preGridImage: "https://assets.gabrielmihali.com/image404.webp",
+    gridImageLeft: "https://assets.gabrielmihali.com/image405.webp",
+    gridImageRight: "https://assets.gabrielmihali.com/image406.webp",
+    intro: "A highly efficient digital ecosystem requires seamless communication—not just between software systems, but between the people using them. Acting as the critical bridge between hardcore backend developers, external software agencies, and non-technical corporate teams, I spearheaded the integration between a custom corporate Intranet (CRM) and the WordPress marketing infrastructure (MailPoet). My role wasn't to write the code, but to architect the logic, define the processes, and deliver a foolproof system for targeted corporate communications.",
+    client: "C.NEXT ecosystem",
+    role: "Technical Project Manager and Integration Lead",
+    year: "2024",
+    challenge: "Managing a complex database of 13,000+ contacts across 30 dynamic lists for C.NEXT's ecosystem hubs. The core technical and organizational hurdle was bridging the gap between the IT developers managing the CRM endpoints and the marketing team, ensuring data synchronized perfectly into WordPress without causing server bloat or requiring constant IT intervention.",
+    objective: "Architect a fully automated, dummy-proof data flow. I was tasked with defining the business logic and categorization rules (company size, stakeholder type, specific interests) to ensure that whenever a non-technical colleague inputted a contact into the Intranet, it automatically populated the correct targeted list in MailPoet for immediate use.",
+    results: "Successfully deployed a unified marketing automation pipeline. The system now autonomously segments 13,000+ contacts based on complex business logic, empowering the marketing team to independently create ad-hoc segments and execute highly targeted DEM campaigns with zero technical friction or IT dependency.",
+    marqueeText: "• SYSTEM INTEGRATION • TECHNICAL PROJECT MANAGEMENT • CRM TO MAILPOET • DATA ARCHITECTURE • CROSS-FUNCTIONAL LEADERSHIP"
+  },
 };
 
-const PROJECT_ORDER = ["cnext-hub", "cnext-system", "streamyard", "internal-b2b-platform", "edfaost"];
+const PROJECT_ORDER = ["cnext-hub", "cnext-system", "streamyard", "internal-b2b-platform", "multi-hub-automation"];
 
 // 2. LA MAGIA: Genera le pagine in modo statico al momento del build (SSG)
 export function generateStaticParams() {
