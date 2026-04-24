@@ -60,7 +60,7 @@ const PROJECTS_DB = {
     results: "Successfully directed over 35 zero-downtime live events, establishing a highly professional digital and authoritative presence for the Hub. The end-to-end management—from technical setup to post-event lead nurturing—resulted in a flawless VIP guest experience and maximized audience retention across both live and on-demand formats.",
     marqueeText: "• REAL-TIME BROADCASTING • VIP STAKEHOLDER MANAGEMENT • ZERO-DOWNTIME OPERATIONS • TECHNICAL DIRECTION • POST-EVENT ANALYTICS"
   },
-  "internal-b2b-platform": {
+  "custom-b2b-platform": {
     title: "Full-Stack WordPress Development (Staging Environment)",
     category: "Custom Web Architecture",
     websiteUrl: "#",
@@ -80,8 +80,8 @@ const PROJECTS_DB = {
     marqueeText: "• FROM-SCRATCH DEVELOPMENT • STAGING ENVIRONMENT • CUSTOM ARCHITECTURE • FRONT-END EXECUTION • CONFIDENTIAL PROJECT"
   },
   "multi-hub-automation": {
-    title: "Multi-Hub CRM and Marketing Automation",
-    category: "Marketing Automation and System Integration",
+    title: "Multi-Hub CRM and DEM Automation",
+    category: "System Integration and Marketing email Automation",
     websiteUrl: "#",
     heroImage: "https://assets.gabrielmihali.com/image501.webp",
     seqImage1: "https://assets.gabrielmihali.com/image502.webp",
@@ -100,7 +100,7 @@ const PROJECTS_DB = {
   },
 };
 
-const PROJECT_ORDER = ["cnext-hub", "cnext-system", "streamyard", "internal-b2b-platform", "multi-hub-automation"];
+const PROJECT_ORDER = ["cnext-hub cnext-system", "cnext-hub", "cnext-hub streamyard", "custom-b2b-platformcustom-b2b-platform", "multi-hub-automation"];
 
 // 2. LA MAGIA: Genera le pagine in modo statico al momento del build (SSG)
 export function generateStaticParams() {
