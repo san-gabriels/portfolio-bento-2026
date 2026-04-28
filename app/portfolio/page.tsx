@@ -11,7 +11,7 @@ const PROJECTS = [
     title: "C.NEXT Corporate Hub",
     category: "Custom Web Architecture and Development",
     slug: "cnext-hub",
-    image: "https://assets.gabrielmihali.com/image103.webp", 
+    image: "https://assets.gabrielmihali.com/image101.webp", 
     colSpan: 1,
   },
   {
@@ -19,7 +19,7 @@ const PROJECTS = [
     title: "Broadcast Architecture and Post-Event Marketing",
     category: "Technical Direction and Live Streaming Events",
     slug: "streamyard",
-    image: "https://assets.gabrielmihali.com/image301.webp",
+    image: "https://assets.gabrielmihali.com/image300.webp",
     colSpan: 1, 
   },
   {
