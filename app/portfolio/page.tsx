@@ -11,7 +11,7 @@ const PROJECTS = [
     title: "C.NEXT Corporate Hub",
     category: "Custom Web Architecture and Development",
     slug: "cnext-hub",
-    image: "https://assets.gabrielmihali.com/image101.webp", 
+    image: "https://assets.gabrielmihali.com/image100.webp", 
     colSpan: 1,
   },
   {
