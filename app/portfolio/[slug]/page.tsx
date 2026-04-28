@@ -100,7 +100,7 @@ const PROJECTS_DB = {
   },
 };
 
-const PROJECT_ORDER = ["cnext-system", "streamyard", "cnext-hub", "custom-b2b-platformcustom-b2b-platform", "multi-hub-automation"];
+const PROJECT_ORDER = ["cnext-hub", "streamyard", "cnext-system", "multi-hub-automation", "custom-b2b-platform"];
 
 // 2. LA MAGIA: Genera le pagine in modo statico al momento del build (SSG)
 export function generateStaticParams() {
