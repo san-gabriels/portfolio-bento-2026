@@ -10,6 +10,8 @@ const techStack = [
   "/stack/google-analytics.svg",
   "/stack/google-tag-manager.svg",
   "/stack/wordpress-color.svg",
+  "/stack/photoshop-original.svg",
+  "/stack/illustrator-original.svg"
 ];
 
 export default function Home() {
