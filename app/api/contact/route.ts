@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
 
+// ECCO LA RIGA MAGICA CHE VUOLE CLOUDFLARE
+export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, company, message } = body;
 
-    // Qui diciamo a Resend cosa fare
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -13,9 +15,7 @@ export async function POST(request: Request) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        // Mittente di default di Resend (funziona per i test)
         from: 'Portfolio Contact <onboarding@resend.dev>',
-        // DESTINATARIO: Qui arrivano le mail
         to: 'contact@gabrielmihali.com', 
         subject: `Nuovo messaggio da ${name}`,
         html: `
