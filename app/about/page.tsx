@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
@@ -28,11 +28,9 @@ const EXPERIENCE_DATA = [
 const PARAGRAPH = "Crafting scalable web ecosystems means turning complex business challenges into measurable digital platforms. As a Digital Infrastructure Architect, my focus is on designing data-driven web experiences rather than just building standard websites. This approach is deeply rooted in my academic background in Information Philosophy. Understanding the epistemic relationship between raw data, structured information, and actionable knowledge provides a rigorous logical framework for web architecture and technical SEO. By seamlessly integrating advanced algorithmic workflows into the process, deployment and performance are significantly accelerated, always keeping human critical thinking at the core of every project.";
 
 const words = PARAGRAPH.split(" ");
+const emailText = "contact@gabrielmihali.com";
 
-// Il trucco dei Pro: Usare l'opacità su due livelli sovrapposti invece di animare il colore
-// Il trucco dei Pro: Usare l'opacità su due livelli sovrapposti invece di animare il colore
 function ScrollWord({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
-  // 0.2 simula il grigio scuro, 1 è il bianco puro
   const opacity = useTransform(progress, range, [0.2, 1]); 
   return (
     <motion.span style={{ opacity }} className="inline-block mr-[0.25em] mt-[0.1em] text-white">
@@ -44,18 +42,47 @@ function ScrollWord({ children, progress, range }: { children: string; progress:
 export default function AboutPage() {
   const textRef = useRef<HTMLDivElement>(null);
   
-  // Offset calibrato: inizia quando la parte alta del testo è all'85% dello schermo (in basso)
-  // Finisce quando la parte bassa del testo è al 50% dello schermo (al centro)
   const { scrollYProgress } = useScroll({
     target: textRef,
     offset: ["start 75%", "end 35%"],
   });
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: ""
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", company: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden bg-black text-white w-full">
-      {/* Nota: Abbiamo rimosso <Navbar /> da qui perché è già nel layout globale */}
-
-      {/* Main container allineato esattamente come la Bento Grid (max-w-[1600px]) */}
       <main className="flex-1 w-full max-w-[1600px] mx-auto pt-[100px] lg:pt-[120px] pb-12 px-4 min-[700px]:px-8">
         
         {/* SECTION 1: Wall of Text */}
@@ -63,7 +90,6 @@ export default function AboutPage() {
           <p className="text-2xl md:text-4xl lg:text-[48px] font-medium leading-tight tracking-tight flex flex-wrap max-w-6xl">
             {words.map((word, i) => {
               const start = i / words.length;
-              // Allunga leggermente l'end per rendere la transizione più morbida
               const end = start + (3 / words.length);
               return (
                 <ScrollWord key={i} progress={scrollYProgress} range={[start, end]}>
@@ -76,7 +102,7 @@ export default function AboutPage() {
 
         {/* SECTION 2: Portrait Image */}
         <section className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 mb-32 md:mb-48">
-          <div className="hidden md:block"></div> {/* Spazio vuoto a sinistra */}
+          <div className="hidden md:block"></div> 
           <div className="relative aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden rounded-[24px]">
             <Image
               src="/images/profile.webp"
@@ -112,15 +138,14 @@ export default function AboutPage() {
         </section>
       </main>
 
-      {/* SECTION 4: Infinite Marquee (Fuori dal max-w per toccare i bordi dello schermo) */}
+      {/* SECTION 4: Infinite Marquee */}
       <section className="w-full overflow-hidden mb-32 md:mb-48">
         <div className="relative flex whitespace-nowrap">
           <motion.div
             className="flex text-[10vw] uppercase font-medium tracking-tighter"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 350 }} // Velocità rallentata (40s)
+            transition={{ repeat: Infinity, ease: "linear", duration: 350 }} 
           >
-            {/* Array moltiplicato per 4 per assicurare lo scorrimento continuo su schermi ultra-wide */}
             {[...Array(4)].map((_, i) => (
               <span key={i} className="pr-8">DIGITAL INFRASTRUCTURE • SCALABLE WEB ECOSYSTEMS • ADVANCED GA4 ANALYTICS • CORE WEB VITALS • LOGIC-DRIVEN ARCHITECTURE • CUSTOM AI INTEGRATIONS • TECHNICAL SEO • </span>
             ))}
@@ -128,26 +153,135 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION 5: Giant CTA Footer */}
-      <footer className="w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8 pb-12 flex flex-col gap-12">
-        <div className="flex flex-col">
-          <span className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
-            Let&apos;s work together
-          </span>
-          <a
-            href="mailto:contact@gabrielmihali.com"
-            className="text-3xl md:text-5xl lg:text-[60px] font-bold tracking-tighter leading-none hover:text-white/60 transition-colors"
-          >
-            contact@gabrielmihali.com
-          </a>
+      {/* SECTION 5: Giant CTA Footer (Email + Form) */}
+      <footer id="contact-section" className="w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8 pb-12 flex flex-col gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8">
+          
+          {/* Colonna Sinistra: Email con Animazione */}
+          <div className="flex flex-col overflow-hidden">
+            <span className="text-white/60 text-sm font-medium uppercase tracking-widest mb-4">
+              Let&apos;s work together
+            </span>
+            
+            <a
+  href="mailto:contact@gabrielmihali.com"
+  className="group relative inline-flex overflow-hidden py-2 mb-6 text-[26px] sm:text-4xl md:text-5xl lg:text-4xl xl:text-[44px] font-bold tracking-tighter leading-tight"
+>
+              <span className="flex">
+                {emailText.split("").map((char, index) => (
+                  <span
+                    key={`top-email-${index}`}
+                    className="transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[110%]"
+                    style={{ transitionDelay: `${index * 15}ms` }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+              <span className="absolute inset-0 flex text-white/60">
+                {emailText.split("").map((char, index) => (
+                  <span
+                    key={`bottom-email-${index}`}
+                    className="transform translate-y-[110%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
+                    style={{ transitionDelay: `${index * 15}ms` }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+            </a>
+
+            <p className="text-white/60 max-w-md text-sm md:text-base leading-relaxed mt-4">
+              Prefer a direct email? Feel free to drop me a line. Otherwise, use the form to send a quick message or request my complete resume.
+            </p>
+          </div>
+
+          {/* Colonna Destra: Il Form Pulito */}
+          <div className="w-full max-w-xl lg:ml-auto">
+            {status === "success" ? (
+              <div className="p-8 border border-white/10 rounded-2xl bg-white/5">
+                <h3 className="text-2xl font-medium mb-2">Message sent successfully!</h3>
+                <p className="text-white/60">I will get back to you as soon as possible.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                
+                {/* Nome & Email */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm text-white/60 uppercase tracking-wider">Name *</label>
+                    <input 
+                      type="text" 
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors rounded-none" 
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm text-white/60 uppercase tracking-wider">Email *</label>
+                    <input 
+                      type="email" 
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors rounded-none" 
+                    />
+                  </div>
+                </div>
+
+                {/* Company */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/60 uppercase tracking-wider">Company *</label>
+                  <input 
+                    type="text" 
+                    name="company"
+                    required
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors rounded-none" 
+                  />
+                </div>
+
+                {/* Messaggio */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-white/60 uppercase tracking-wider">Message *</label>
+                  <textarea 
+                    name="message"
+                    required
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors resize-none rounded-none" 
+                  />
+                </div>
+
+                {/* Pulsante Submit */}
+                <button 
+                  type="submit" 
+                  disabled={status === "loading"}
+                  className="mt-4 w-full md:w-auto self-end bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-white/90 transition-colors disabled:opacity-50"
+                >
+                  {status === "loading" ? "Sending..." : "Send Message"}
+                </button>
+                
+                {status === "error" && (
+                  <span className="text-red-400 text-sm text-right mt-2">Something went wrong. Please try again.</span>
+                )}
+              </form>
+            )}
+          </div>
         </div>
         
+        {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-8 border-t border-white/10 mt-12 md:mt-24">
           <div className="text-sm text-white/60">
             © {new Date().getFullYear()} ... Made with love by me!
           </div>
           <div className="flex gap-6">
-            <a href="https://www.linkedin.com/in/sandu-gabriel-mihali/" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/sandu-gabriel-mihali/" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
           </div>
         </div>
       </footer>
