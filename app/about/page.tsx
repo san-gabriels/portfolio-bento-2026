@@ -144,12 +144,10 @@ export default function AboutPage() {
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-8 border-t border-white/10 mt-12 md:mt-24">
           <div className="text-sm text-white/60">
-            © {new Date().getFullYear()} ... All rights reserved.
+            © {new Date().getFullYear()} ... Made with love by me!
           </div>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Instagram</a>
-            <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="text-sm text-white/60 hover:text-white transition-colors">Dribbble</a>
+            <a href="https://www.linkedin.com/in/sandu-gabriel-mihali/" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
           </div>
         </div>
       </footer>
