@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         from: 'Portfolio Contact <portfolio@gabrielmihali.com>',
         to: 'contact@gabrielmihali.com', 
-        subject: `Nuovo messaggio da ${name}`,
+        subject: `Portfolio: nuovo messaggio da ${name}`,
         html: `
           <div style="font-family: sans-serif; line-height: 1.5; color: #333;">
             <h2>Nuovo messaggio dal tuo Portfolio</h2>
