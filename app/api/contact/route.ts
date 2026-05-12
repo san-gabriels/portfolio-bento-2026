@@ -15,7 +15,7 @@ export async function POST(request: Request) {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'Portfolio Contact <hello@gabrielmihali.com>',
+        from: 'Portfolio Contact <portfolio@gabrielmihali.com>',
         to: 'contact@gabrielmihali.com', 
         subject: `Nuovo messaggio da ${name}`,
         html: `
