@@ -129,9 +129,10 @@ export default function Home() {
 
             {/* RESUME: Rimosso h-full. Aggiunto !p-[16px] su mobile per non far impazzire l'altezza */}
             <BentoCard
-              title="Resume"
+              title="Get in touch"
               colSpan={1}
               onHover={setHoveredCardName}
+              href="/about#contact"
               className="w-full !p-[16px] md:!p-[24px] lg:!p-[32px] flex flex-col justify-end"
             />
           </div>

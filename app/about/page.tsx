@@ -154,7 +154,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION 5: Giant CTA Footer (Email + Form) */}
-      <footer id="contact-section" className="w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8 pb-12 flex flex-col gap-12">
+      <footer id="contact" className="w-full max-w-[1600px] mx-auto px-4 min-[700px]:px-8 pb-12 flex flex-col gap-12 scroll-mt-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8">
           
           {/* Colonna Sinistra: Email con Animazione */}
@@ -257,7 +257,7 @@ export default function AboutPage() {
                     className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors resize-none rounded-none" 
                   />
                 </div>
-                
+
 {/* GDPR Privacy Checkbox */}
                 <div className="flex items-start gap-3 mt-2">
                   <input
@@ -268,7 +268,7 @@ export default function AboutPage() {
                     className="mt-1 w-4 h-4 rounded border-white/20 bg-transparent accent-white cursor-pointer"
                   />
                   <label htmlFor="privacy" className="text-sm text-white/60 leading-tight cursor-pointer">
-                    I have read the <a href="/privacy" target="_blank" className="text-white underline hover:text-white/80 transition-colors">Privacy Policy</a> and agree to the processing of my personal data.
+                    I have read the <a href="/privacy" target="_self" className="text-white underline hover:text-white/80 transition-colors">Privacy Policy</a> and agree to the processing of my personal data.
                   </label>
                 </div>
 
