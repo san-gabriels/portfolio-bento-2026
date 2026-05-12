@@ -106,7 +106,7 @@ export default function Home() {
                   transition={{
                     repeat: Infinity,
                     ease: "linear",
-                    duration: 20, 
+                    duration: 30, 
                   }}
                 >
                   {[...techStack, ...techStack, ...techStack, ...techStack].map((src, index) => (

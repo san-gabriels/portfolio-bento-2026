@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 /**
  * Nota tecnica: In questo ambiente di anteprima, utilizziamo i tag standard <a> e <img> 
@@ -10,7 +10,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
  */
 
 // --- COMPONENTE INTERNO: ScrollWord ---
-// Lo integriamo qui per risolvere l'errore di importazione @/components/ScrollWord
 const ScrollWord = ({ children, progress, range }: { children: React.ReactNode, progress: any, range: [number, number] }) => {
   const opacity = useTransform(progress, range, [0.1, 1]);
   return (
@@ -27,12 +26,15 @@ const EXPERIMENTS = [
   { id: 3, title: "ASCII Art", category: "Typography", slug: "ascii", image: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800" },
   { id: 4, title: "Cyberpunk City", category: "3D Render", slug: "cyber-city", image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=1200" },
   { id: 5, title: "Glitch UI", category: "React", slug: "glitch", image: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=800" },
-  { id: 6, title: "Generative AI", category: "Code", slug: "gen-ai", image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600" },
+  { id: 6, title: "Retro interface", category: "UI", slug: "retro-interface", image: "https://images.unsplash.com/photo-1720962158852-e7039d31c3c1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
 ];
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLElement>(null);
+  
+  // Stato per gestire l'overlay "Coming Soon"
+  const [selectedProject, setSelectedProject] = useState<typeof EXPERIMENTS[0] | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: textRef,
@@ -62,7 +64,7 @@ export default function App() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-black text-white w-full flex flex-col pt-[120px] lg:pt-[160px] pb-24 font-sans">
+    <div ref={containerRef} className="min-h-screen bg-black text-white w-full flex flex-col pt-[120px] lg:pt-[160px] pb-24 font-sans relative">
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-8">
         
         {/* Titolo con effetto Reveal allo scroll */}
@@ -89,6 +91,10 @@ export default function App() {
               <a
                 key={project.id}
                 href={`/experiments/${project.slug}`}
+                onClick={(e) => {
+                  e.preventDefault(); // Blocca la navigazione verso la 404
+                  setSelectedProject(project); // Apre l'overlay
+                }}
                 className={`group block bg-white/[0.03] border border-white/5 rounded-[24px] p-2 md:p-3 transition-colors hover:bg-white/[0.06] ${style.span}`}
               >
                 <div className={`relative w-full overflow-hidden rounded-[18px] bg-white/5 ${style.aspect}`}>
@@ -116,6 +122,60 @@ export default function App() {
         </section>
 
       </main>
+
+      {/* OVERLAY "COMING SOON" */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            onClick={() => setSelectedProject(null)} // Chiude cliccando fuori
+          >
+            <motion.div
+              initial={{ y: 20, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative bg-black border border-white/10 rounded-[24px] p-8 md:p-16 max-w-xl w-full text-center shadow-2xl"
+              onClick={(e) => e.stopPropagation()} // Previene la chiusura cliccando sul box
+            >
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
+              <div className="mb-6 inline-block">
+                <span className="text-white/40 text-xs md:text-sm uppercase tracking-[0.2em] border border-white/10 rounded-full px-4 py-1.5">
+                  {selectedProject.category}
+                </span>
+              </div>
+              
+              <h3 className="text-3xl md:text-5xl font-medium tracking-tighter mb-4">
+                Coming Soon
+              </h3>
+              
+              <p className="text-white/60 text-base md:text-lg leading-relaxed mb-8">
+                The <span className="text-white">"{selectedProject.title}"</span> experiment is currently compiling. I'm polishing the final details before releasing it into the wild.
+              </p>
+
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-white/90 transition-colors"
+              >
+                Got it
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

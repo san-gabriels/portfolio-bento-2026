@@ -192,7 +192,7 @@ export default function AboutPage() {
             </a>
 
             <p className="text-white/60 max-w-md text-sm md:text-base leading-relaxed mt-4">
-              Prefer a direct email? Feel free to drop me a line. Otherwise, use the form to send a quick message or request my complete resume.
+              Feel free to drop me a line if you prefer direct email. Otherwise, use the form to send a quick message or request my complete resume.
             </p>
           </div>
 
