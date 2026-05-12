@@ -6,14 +6,20 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 const EXPERIENCE_DATA = [
   {
-    year: "2021 - Present",
+    year: "2023 - Present",
     role: "Digital Infrastructure Architect and Web Analytics Lead",
+    company: "C.NEXT Digital Ecosystem",
+    description: "Designing and scaling data-driven web ecosystems. Driving technical SEO strategies and advanced GA4 tracking to optimize conversion flows, while integrating AI-assisted coding practices to accelerate custom web development without compromising structural stability and brand identity.",
+  },
+  {
+    year: "2021 - 2023",
+    role: "Lead WordPress Developer",
     company: "C.NEXT Spa",
-    description: "Designing and scaling data-driven web ecosystems. Driving technical SEO strategies and advanced GA4 tracking to optimize conversion flows, while leveraging algorithmic workflows to accelerate custom web development without compromising structural stability.",
+    description: "Engineered the core corporate hub from the ground up, bypassing standard builder limitations. Focused on architecting custom WordPress environments, integrating tailored plugins, and managing complex databases to ensure rock-solid backend stability and seamless data flow for daily business operations.",
   },
   {
     year: "2019 - 2021",
-    role: "Technical Web Specialist and Broadcast Architect",
+    role: "Technical Web Specialist and Broadcast Specialist",
     company: "ComoNExT - Innovation Hub",
     description: "Managed digital legacy systems with a strong focus on technical SEO and structural maintenance. Simultaneously directed over 35 high-stakes, broadcast-quality live events, ensuring flawless real-time technical operations and seamless VIP stakeholder coordination.",
   },
