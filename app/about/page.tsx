@@ -257,6 +257,20 @@ export default function AboutPage() {
                     className="w-full bg-transparent border-b border-white/20 pb-2 text-lg focus:outline-none focus:border-white transition-colors resize-none rounded-none" 
                   />
                 </div>
+                
+{/* GDPR Privacy Checkbox */}
+                <div className="flex items-start gap-3 mt-2">
+                  <input
+                    type="checkbox"
+                    id="privacy"
+                    name="privacy"
+                    required
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-transparent accent-white cursor-pointer"
+                  />
+                  <label htmlFor="privacy" className="text-sm text-white/60 leading-tight cursor-pointer">
+                    I have read the <a href="/privacy" target="_blank" className="text-white underline hover:text-white/80 transition-colors">Privacy Policy</a> and agree to the processing of my personal data.
+                  </label>
+                </div>
 
                 {/* Pulsante Submit */}
                 <button 
