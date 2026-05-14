@@ -54,6 +54,10 @@ const bogitaMono = localFont({
 export const metadata: Metadata = {
   title: "Gabriel Mihali | Portfolio", // Ricordati di mettere il tuo nome qui se non l'hai già fatto!
   description: "Digital Infrastructure Architect | Web Analytics Expert | Lead Wordpress Dev",
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
 };
 
 export default function RootLayout({
