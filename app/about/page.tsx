@@ -171,8 +171,7 @@ export default function AboutPage() {
             
             <a
   href="mailto:contact@gabrielmihali.com"
-  className="group relative inline-flex overflow-hidden py-2 mb-6 text-[26px] sm:text-4xl md:text-5xl lg:text-4xl xl:text-[44px] font-bold tracking-tighter leading-tight"
->
+className="group relative inline-flex overflow-hidden py-2 mb-6 text-[20px] min-[400px]:text-[26px] sm:text-4xl md:text-5xl lg:text-4xl xl:text-[44px] font-bold tracking-tighter leading-tight">
               <span className="flex">
                 {emailText.split("").map((char, index) => (
                   <span
