@@ -21,7 +21,7 @@ const ScrollWord = ({ children, progress, range }: { children: React.ReactNode, 
 
 // Dati degli esperimenti
 const EXPERIMENTS = [
-  { id: 1, title: "CRT Shader", category: "WebGL", slug: "crt-shader", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" },
+  { id: 1, title: "Hubble 95", category: "WebGL", slug: "hubble95", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" },
   { id: 2, title: "Fluid Sim", category: "Physics", slug: "fluid-sim", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" },
   { id: 3, title: "ASCII Art", category: "Typography", slug: "ascii", image: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800" },
   { id: 4, title: "Cyberpunk City", category: "3D Render", slug: "cyber-city", image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=1200" },
@@ -88,15 +88,20 @@ export default function App() {
             const style = getGridItemStyle(index);
 
             return (
-              <a
-                key={project.id}
-                href={`/experiments/${project.slug}`}
-                onClick={(e) => {
-                  e.preventDefault(); // Blocca la navigazione verso la 404
-                  setSelectedProject(project); // Apre l'overlay
-                }}
-                className={`group block bg-white/[0.03] border border-white/5 rounded-[24px] p-2 md:p-3 transition-colors hover:bg-white/[0.06] ${style.span}`}
-              >
+             <a
+  key={project.id}
+  href={`/experiments/${project.slug}`}
+  onClick={(e) => {
+    // Se NON è Hubble 95, blocca la navigazione e mostra il pop-up
+    if (project.slug !== "hubble95") {
+      e.preventDefault(); 
+      setSelectedProject(project); 
+    }
+    // Se è hubble95, l'if viene ignorato e il tag <a> esegue 
+    // la sua navigazione nativa verso l'href.
+  }}
+  className={`group block bg-white/[0.03] border border-white/5 rounded-[24px] p-2 md:p-3 transition-colors hover:bg-white/[0.06] ${style.span}`}
+>
                 <div className={`relative w-full overflow-hidden rounded-[18px] bg-white/5 ${style.aspect}`}>
                   
                   {/* Mirini CAD anni '90 (Dettaglio di stile) */}
