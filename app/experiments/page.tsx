@@ -67,7 +67,6 @@ export default function App() {
     <div ref={containerRef} className="min-h-screen bg-black text-white w-full flex flex-col pt-[120px] lg:pt-[160px] pb-24 font-sans relative">
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-8">
         
-        {/* Titolo con effetto Reveal allo scroll */}
         <section ref={textRef} className="w-full mb-16 md:mb-24">
           <h1 className="text-3xl md:text-5xl lg:text-[48px] font-medium leading-[1.1] tracking-tight flex flex-wrap w-full">
             {words.map((word, i) => {
@@ -82,29 +81,24 @@ export default function App() {
           </h1>
         </section>
 
-        {/* Griglia Bento Asimmetrica a 3 colonne */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {EXPERIMENTS.map((project, index) => {
             const style = getGridItemStyle(index);
 
             return (
              <a
-  key={project.id}
-  href={`/experiments/${project.slug}`}
-  onClick={(e) => {
-    // Se NON è Hubble 95, blocca la navigazione e mostra il pop-up
-    if (project.slug !== "hubble95") {
-      e.preventDefault(); 
-      setSelectedProject(project); 
-    }
-    // Se è hubble95, l'if viene ignorato e il tag <a> esegue 
-    // la sua navigazione nativa verso l'href.
-  }}
-  className={`group block bg-white/[0.03] border border-white/5 rounded-[24px] p-2 md:p-3 transition-colors hover:bg-white/[0.06] ${style.span}`}
->
+                key={project.id}
+                href={`/experiments/${project.slug}`}
+                onClick={(e) => {
+                  if (project.slug !== "hubble95") {
+                    e.preventDefault(); 
+                    setSelectedProject(project); 
+                  }
+                }}
+                className={`group block bg-white/[0.03] border border-white/5 rounded-[24px] p-2 md:p-3 transition-colors hover:bg-white/[0.06] ${style.span}`}
+              >
                 <div className={`relative w-full overflow-hidden rounded-[18px] bg-white/5 ${style.aspect}`}>
                   
-                  {/* Mirini CAD anni '90 (Dettaglio di stile) */}
                   <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"></div>
                   <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"></div>
                   <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"></div>
@@ -128,7 +122,6 @@ export default function App() {
 
       </main>
 
-      {/* OVERLAY "COMING SOON" */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -136,7 +129,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            onClick={() => setSelectedProject(null)} // Chiude cliccando fuori
+            onClick={() => setSelectedProject(null)}
           >
             <motion.div
               initial={{ y: 20, opacity: 0, scale: 0.95 }}
@@ -144,7 +137,7 @@ export default function App() {
               exit={{ y: 20, opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="relative bg-black border border-white/10 rounded-[24px] p-8 md:p-16 max-w-xl w-full text-center shadow-2xl"
-              onClick={(e) => e.stopPropagation()} // Previene la chiusura cliccando sul box
+              onClick={(e) => e.stopPropagation()}
             >
               <button 
                 onClick={() => setSelectedProject(null)}
