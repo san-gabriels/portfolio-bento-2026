@@ -12,6 +12,9 @@ interface DraggableWindowProps {
   id?: string;
   isMinimized?: boolean;
   onMinimize?: (id: string, isMinimized: boolean) => void;
+  // NUOVE PROP PER LO Z-INDEX
+  zIndex?: number;
+  onFocus?: () => void;
 }
 
 const TASKBAR_HEIGHT_PX = 40;
@@ -25,46 +28,39 @@ export default function DraggableWindow({
   id = "window_default",
   isMinimized = false,
   onMinimize = () => {},
+  zIndex = 10,
+  onFocus = () => {},
 }: DraggableWindowProps) {
   const [isMaximized, setIsMaximized] = useState(false);
-  const [position, setPosition] = useState(initial);
-  const [savedPosition, setSavedPosition] = useState(initial);
-
   const dragControls = useDragControls();
 
-  // Comunica la minimizzazione iniziale al parent, se necessario
   useEffect(() => {
     onMinimize(id, isMinimized);
   }, [id, isMinimized, onMinimize]);
 
-  // Se minimizzato, restituiamo null per nascondere la finestra dal DOM
   if (isMinimized) {
     return null;
   }
 
   const toggleMaximize = () => {
-    if (!isMaximized) {
-      setSavedPosition(position);
-    } else {
-      setPosition(savedPosition);
-    }
     setIsMaximized(!isMaximized);
   };
 
   return (
     <motion.div
+      // onPointerDownCapture intercetta qualsiasi click sulla finestra e la porta in primo piano
+      onPointerDownCapture={onFocus} 
       drag={!isMaximized}
       dragControls={dragControls}
-      dragListener={false} // IMPORTANTE: Disabilita il drag sull'intero div
+      dragListener={false} 
       dragConstraints={parentRef}
       dragMomentum={false}
       dragElastic={0}
-      initial={isMaximized ? { x: 0, y: 0 } : initial}
-      animate={isMaximized ? { x: 0, y: 0 } : undefined}
-      // Stili dinamici se massimizzata
-      className={`absolute flex flex-col z-10 ${className}`}
+      initial={initial}
+      className={`absolute flex flex-col ${className}`}
       style={{
         touchAction: "none",
+        zIndex: zIndex, // Applica lo z-index calcolato dal genitore
         ...(isMaximized
           ? {
               top: 0,
@@ -72,6 +68,8 @@ export default function DraggableWindow({
               right: 0,
               bottom: `${TASKBAR_HEIGHT_PX}px`,
               position: "fixed",
+              // IL FIX PER IL DESKTOP: Rimuove i valori di drag quando è massimizzata
+              transform: "none !important", 
             }
           : {}),
       }}
@@ -80,7 +78,6 @@ export default function DraggableWindow({
         
         {/* Window Title Bar */}
         <div
-          // Avvia il drag solo premendo sulla barra del titolo
           onPointerDown={(e) => {
              if (!isMaximized) dragControls.start(e);
           }}
@@ -91,13 +88,13 @@ export default function DraggableWindow({
           <span className="font-bold text-sm select-none">{title}</span>
           <div className="flex gap-1">
             <button
-              onClick={() => onMinimize(id, true)}
+              onClick={(e) => { e.stopPropagation(); onMinimize(id, true); }} // stopPropagation evita di far partire il drag
               className="bg-[#c0c0c0] text-black w-4 h-4 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[10px] leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]"
             >
               _
             </button>
             <button
-              onClick={toggleMaximize}
+              onClick={(e) => { e.stopPropagation(); toggleMaximize(); }}
               className="bg-[#c0c0c0] text-black w-4 h-4 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[10px] leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]"
             >
               □
