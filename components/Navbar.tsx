@@ -23,6 +23,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // DISATTIVA NAVBAR SU HUBBLE95
+  if (pathname === "/experiments/hubble95") {
+    return null;
+  }
+
   const segments = pathname.split("/").filter(Boolean);
   const isHome = segments.length === 0;
   const isLevel2 = segments.length === 1;

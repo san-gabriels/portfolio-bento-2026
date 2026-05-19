@@ -48,7 +48,7 @@ const PROJECTS = [
   },
 ];
 
-const HERO_TEXT = "Dive into a few projects that represent my most fulfilling design experiences";
+const HERO_TEXT = "Dive into a few projects that represent my most fulfilling design experiences, showcasing a blend of creativity, technical skill, and strategic thinking across various industries and platforms.";
 const words = HERO_TEXT.split(" ");
 
 function ScrollWord({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {

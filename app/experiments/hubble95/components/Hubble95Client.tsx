@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { motion, useAnimation, useDragControls } from "framer-motion";
 import { VT323 } from "next/font/google";
 import DraggableWindow from "./DraggableWindow";
 import AlertPopup from "./AlertPopup";
+import Taskbar from "./Taskbar";
 
 const vt323 = VT323({
   weight: "400",
@@ -40,50 +40,50 @@ type NeoData = {
   };
 };
 
+// Tipo per gestire lo stato di una singola finestra
+type WindowState = {
+  id: string;
+  isMinimized: boolean;
+};
+
 export default function Hubble95Client({
   initialApodData,
+  initialNeosData,
 }: {
   initialApodData: ApodData | null;
+  initialNeosData: NeoData[];
 }) {
-  const [neos, setNeos] = useState<NeoData[]>([]);
-  const [loadingNeos, setLoadingNeos] = useState(true);
+  // Gestione dell'elenco delle finestre e del loro stato
+  const [windowsState, setWindowsState] = useState<WindowState[]>([
+    { id: 'apod_window', isMinimized: false },
+    { id: 'neows_window', isMinimized: false }
+  ]);
+
+  const [neos, setNeos] = useState<NeoData[]>(initialNeosData);
   const [showHazardAlert, setShowHazardAlert] = useState(false);
   const [panicoActive, setPanicoActive] = useState(false);
 
   const parentRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
 
-  useEffect(() => {
-    const fetchNeos = async () => {
-      const today = new Date().toISOString().split("T")[0];
-      const apiKey = process.env.NEXT_PUBLIC_NASA_API_KEY || "DEMO_KEY";
-
-      try {
-        const res = await fetch(
-          `https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`
-        );
-        if (res.ok) {
-          const data = await res.json();
-          const todaysNeos = data.near_earth_objects[today] || [];
-          setNeos(todaysNeos);
-
-          const hasHazard = todaysNeos.some(
-            (neo: NeoData) => neo.is_potentially_hazardous_asteroid
-          );
-          if (hasHazard) {
-            setShowHazardAlert(true);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching NeoWs data:", error);
-      } finally {
-        setLoadingNeos(false);
-      }
-    };
-
-    fetchNeos();
+  // Funzione per aggiornare lo stato di minimizzazione di una finestra
+  const handleMinimize = useCallback((id: string, isMinimized: boolean) => {
+    setWindowsState(prev => 
+      prev.map(win => win.id === id ? { ...win, isMinimized } : win)
+    );
   }, []);
 
+  // Controllo Hazard Alert all'avvio
+  useEffect(() => {
+    const hasHazard = initialNeosData.some(
+      (neo) => neo.is_potentially_hazardous_asteroid
+    );
+    if (hasHazard) {
+      setShowHazardAlert(true);
+    }
+  }, [initialNeosData]);
+
+  // Gestione dell'animazione di panico
   useEffect(() => {
     if (panicoActive) {
       controls.start({
@@ -105,20 +105,21 @@ export default function Hubble95Client({
   return (
     <motion.div
       animate={controls}
-      className={`min-h-screen bg-[#008080] w-full flex flex-col items-center justify-center relative overflow-hidden ${vt323.className} text-black selection:bg-blue-800 selection:text-white`}
+      className={`min-h-screen bg-[#008080] w-full flex flex-col items-center justify-center relative overflow-hidden pb-[40px] ${vt323.className} text-black selection:bg-blue-800 selection:text-white`}
       ref={parentRef}
     >
-      <div className="absolute top-4 left-4 z-50">
-        <Link
-          href="/experiments"
-          className="bg-[#c0c0c0] px-2 py-1 text-black shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf] text-lg hover:cursor-pointer"
-        >
-          &larr; Back to Lab
-        </Link>
-      </div>
-
+      
+      {/* Finestra APOD */}
       {initialApodData && (
-        <DraggableWindow parentRef={parentRef} title="APOD.exe" initial={{ x: -300, y: -100 }} className="w-[400px]">
+        <DraggableWindow 
+          id="apod_window" 
+          parentRef={parentRef} 
+          title="APOD.exe" 
+          initial={{ x: -300, y: -100 }} 
+          className="w-[400px]"
+          isMinimized={windowsState.find(win => win.id === 'apod_window')?.isMinimized}
+          onMinimize={handleMinimize}
+        >
           <div className="p-2 space-y-2">
             <h2 className="font-bold text-xl leading-tight border-b border-gray-400 pb-1">{initialApodData.title}</h2>
             {initialApodData.media_type === "image" ? (
@@ -141,12 +142,19 @@ export default function Hubble95Client({
         </DraggableWindow>
       )}
 
-      <DraggableWindow parentRef={parentRef} title="NEOWS_TRACKER.exe" initial={{ x: 200, y: 50 }} className="w-[350px]">
+      {/* Finestra NeoWs TRACKER */}
+      <DraggableWindow 
+        id="neows_window" 
+        parentRef={parentRef} 
+        title="NEOWS_TRACKER.exe" 
+        initial={{ x: 200, y: 50 }} 
+        className="w-[350px]"
+        isMinimized={windowsState.find(win => win.id === 'neows_window')?.isMinimized}
+        onMinimize={handleMinimize}
+      >
         <div className="p-2">
           <h2 className="font-bold text-lg mb-2 border-b border-gray-400 pb-1">Near Earth Objects (Today)</h2>
-          {loadingNeos ? (
-            <p>Scanning sectors...</p>
-          ) : neos.length > 0 ? (
+          {neos.length > 0 ? (
             <div className="space-y-3 h-[250px] overflow-y-auto pr-1">
               {neos.map((neo) => (
                 <div key={neo.id} className="border border-gray-400 p-1 text-sm bg-white">
@@ -159,11 +167,11 @@ export default function Hubble95Client({
                   <div className="grid grid-cols-2 gap-1 text-xs">
                     <div>
                       <span className="text-gray-500">Dist: </span>
-                      {neo.close_approach_data[0] ? Number(neo.close_approach_data[0].miss_distance.kilometers).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' km' : 'N/A'}
+                      {neo.close_approach_data[0] ? Number(neo.close_approach_data[0].miss_distance.kilometers).toLocaleString('en-US', {maximumFractionDigits: 0}) + ' km' : 'N/A'}
                     </div>
                     <div>
                       <span className="text-gray-500">Vel: </span>
-                      {neo.close_approach_data[0] ? Number(neo.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString(undefined, {maximumFractionDigits: 0}) + ' km/h' : 'N/A'}
+                      {neo.close_approach_data[0] ? Number(neo.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString('en-US', {maximumFractionDigits: 0}) + ' km/h' : 'N/A'}
                     </div>
                     <div className="col-span-2">
                       <span className="text-gray-500">Size: </span>
@@ -179,6 +187,7 @@ export default function Hubble95Client({
         </div>
       </DraggableWindow>
 
+      {/* Popup di Allerta */}
       {showHazardAlert && (
         <AlertPopup
           onIgnore={() => setShowHazardAlert(false)}
@@ -189,6 +198,12 @@ export default function Hubble95Client({
           parentRef={parentRef}
         />
       )}
+
+      {/* Taskbar: Passiamo l'elenco delle finestre minimizzate */}
+      <Taskbar 
+        minimizedWindows={windowsState.filter(win => win.isMinimized)} 
+        onRestoreWindow={(id) => handleMinimize(id, false)} 
+      />
     </motion.div>
   );
 }
