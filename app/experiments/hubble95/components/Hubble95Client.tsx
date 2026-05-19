@@ -9,7 +9,6 @@ import Taskbar from "./Taskbar";
 
 const vt323 = VT323({ weight: "400", subsets: ["latin"] });
 
-// ... (Lascia qui intatti i type ApodData e NeoData)
 type ApodData = { title: string; url: string; explanation: string; media_type: string; };
 type NeoData = { id: string; name: string; is_potentially_hazardous_asteroid: boolean; close_approach_data: { close_approach_date: string; miss_distance: { kilometers: string; }; relative_velocity: { kilometers_per_hour: string; }; }[]; estimated_diameter: { kilometers: { estimated_diameter_min: number; estimated_diameter_max: number; }; }; };
 
@@ -27,13 +26,11 @@ export default function Hubble95Client({
     { id: 'neows_window', isMinimized: false }
   ]);
 
-  // STATO PER LO Z-INDEX: Array che definisce l'ordine (l'ultimo è in primo piano)
   const [windowOrder, setWindowOrder] = useState<string[]>(['neows_window', 'apod_window']);
   
-  // STATI PER LA RESPONSIVITA'
   const [isMounted, setIsMounted] = useState(false);
   const [initialPos, setInitialPos] = useState({
-    apod: { x: -10, y: -20 }, // Layout a cascata per Mobile
+    apod: { x: -10, y: -20 },
     neows: { x: 10, y: 20 }
   });
 
@@ -44,11 +41,9 @@ export default function Hubble95Client({
   const parentRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
 
-  // 1. Calcola layout responsivo all'avvio
   useEffect(() => {
     setIsMounted(true);
     if (window.innerWidth >= 768) {
-      // Layout distanziato per Desktop
       setInitialPos({
         apod: { x: -300, y: -100 },
         neows: { x: 200, y: 50 }
@@ -56,12 +51,9 @@ export default function Hubble95Client({
     }
   }, []);
 
-  // 2. Funzione per portare una finestra in primo piano
   const bringToFront = useCallback((id: string) => {
     setWindowOrder(prev => {
-      // Se è già in cima, non fare nulla
       if (prev[prev.length - 1] === id) return prev;
-      // Altrimenti rimuovila e mettila in fondo all'array
       return [...prev.filter(winId => winId !== id), id];
     });
   }, []);
@@ -72,13 +64,11 @@ export default function Hubble95Client({
     );
   }, []);
 
-  // Controllo Hazard
   useEffect(() => {
     const hasHazard = initialNeosData.some((neo) => neo.is_potentially_hazardous_asteroid);
     if (hasHazard) setShowHazardAlert(true);
   }, [initialNeosData]);
 
-  // Animazione Panico
   useEffect(() => {
     if (panicoActive) {
       controls.start({
@@ -99,7 +89,6 @@ export default function Hubble95Client({
       ref={parentRef}
     >
       
-      {/* Mostra le finestre solo dopo il mount per evitare layout shift responsivi */}
       {isMounted && (
         <>
           {/* Finestra APOD */}
@@ -109,30 +98,45 @@ export default function Hubble95Client({
               parentRef={parentRef} 
               title="APOD.exe" 
               initial={initialPos.apod} 
-              className="w-[90%] max-w-[400px]" // Reso max-w per non sbordare su mobile
+              // Aggiunta altezza di base (h-[550px]) per evitare collassi
+              className="w-[90%] max-w-[450px] h-[550px]" 
               isMinimized={windowsState.find(win => win.id === 'apod_window')?.isMinimized}
               onMinimize={handleMinimize}
-              zIndex={windowOrder.indexOf('apod_window') + 10} // Base z-index 10
+              zIndex={windowOrder.indexOf('apod_window') + 10}
               onFocus={() => bringToFront('apod_window')}
             >
-              <div className="p-2 space-y-2">
-                <h2 className="font-bold text-xl leading-tight border-b border-gray-400 pb-1">{initialApodData.title}</h2>
+              {/* Contenitore Flexbox che sfrutta tutta l'altezza */}
+              <div className="p-2 flex flex-col h-full gap-2 overflow-hidden">
+                <h2 className="font-bold text-xl leading-tight border-b border-gray-400 pb-1 flex-shrink-0">
+                  {initialApodData.title}
+                </h2>
+                
+                {/* Immagine: Forza l'altezza al 60% e previene che venga schiacciata dal testo */}
                 {initialApodData.media_type === "image" ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={initialApodData.url}
-                    alt={initialApodData.title}
-                    className="w-full h-auto border-2 border-gray-500 max-h-[300px] object-cover"
-                    draggable={false}
-                  />
+                  <div className="relative w-full border-2 border-gray-500 bg-black"
+                       style={{ flexBasis: '65%', flexShrink: 0 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={initialApodData.url}
+                      alt={initialApodData.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      draggable={false}
+                    />
+                  </div>
                 ) : (
-                  <div className="w-full aspect-video border-2 border-gray-500 bg-black flex items-center justify-center text-white">
+                  <div className="relative w-full border-2 border-gray-500 bg-black flex items-center justify-center text-white"
+                       style={{ flexBasis: '60%', flexShrink: 0 }}>
                     Video/Other Media
                   </div>
                 )}
-                <p className="text-sm h-[100px] overflow-y-auto pr-1">
-                  {initialApodData.explanation}
-                </p>
+                
+                {/* Testo: Prende il restante 40% (o meno) con scrollbar */}
+                <div className="overflow-y-auto pr-2"
+                     style={{ flexBasis: '40%', flexGrow: 1 }}>
+                  <p className="text-sm">
+                    {initialApodData.explanation}
+                  </p>
+                </div>
               </div>
             </DraggableWindow>
           )}
@@ -143,16 +147,22 @@ export default function Hubble95Client({
             parentRef={parentRef} 
             title="NEOWS_TRACKER.exe" 
             initial={initialPos.neows} 
-            className="w-[90%] max-w-[350px]" // Reso max-w per non sbordare su mobile
+            // Aggiunta altezza di base (h-[450px]) 
+            className="w-[90%] max-w-[380px] h-[450px]" 
             isMinimized={windowsState.find(win => win.id === 'neows_window')?.isMinimized}
             onMinimize={handleMinimize}
             zIndex={windowOrder.indexOf('neows_window') + 10}
             onFocus={() => bringToFront('neows_window')}
           >
-            <div className="p-2">
-              <h2 className="font-bold text-lg mb-2 border-b border-gray-400 pb-1">Near Earth Objects (Today)</h2>
+            {/* Contenitore Flexbox */}
+            <div className="p-2 flex flex-col h-full overflow-hidden">
+              <h2 className="font-bold text-lg mb-2 border-b border-gray-400 pb-1 flex-shrink-0">
+                Near Earth Objects (Today)
+              </h2>
+              
               {neos.length > 0 ? (
-                <div className="space-y-3 h-[250px] overflow-y-auto pr-1">
+                // Lista adattiva: riempie tutta l'altezza disponibile rimuovendo h-[250px]
+                <div className="flex-1 overflow-y-auto pr-2 space-y-3">
                   {neos.map((neo) => (
                     <div key={neo.id} className="border border-gray-400 p-1 text-sm bg-white">
                       <div className="flex justify-between items-center mb-1 bg-blue-800 text-white px-1">
@@ -198,7 +208,7 @@ export default function Hubble95Client({
         minimizedWindows={windowsState.filter(win => win.isMinimized)} 
         onRestoreWindow={(id) => {
           handleMinimize(id, false);
-          bringToFront(id); // Riporta in primo piano quando la ripristini dalla taskbar
+          bringToFront(id);
         }} 
       />
     </motion.div>

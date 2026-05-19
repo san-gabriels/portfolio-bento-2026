@@ -12,7 +12,6 @@ interface DraggableWindowProps {
   id?: string;
   isMinimized?: boolean;
   onMinimize?: (id: string, isMinimized: boolean) => void;
-  // NUOVE PROP PER LO Z-INDEX
   zIndex?: number;
   onFocus?: () => void;
 }
@@ -48,33 +47,40 @@ export default function DraggableWindow({
 
   return (
     <motion.div
-      // onPointerDownCapture intercetta qualsiasi click sulla finestra e la porta in primo piano
-      onPointerDownCapture={onFocus} 
+      onPointerDownCapture={onFocus}
       drag={!isMaximized}
       dragControls={dragControls}
-      dragListener={false} 
+      dragListener={false}
       dragConstraints={parentRef}
       dragMomentum={false}
       dragElastic={0}
+      
+      // LA SOLUZIONE È QUI: Usiamo animate per forzare il posizionamento di Framer Motion
       initial={initial}
-      className={`absolute flex flex-col ${className}`}
+      animate={isMaximized ? { x: 0, y: 0 } : undefined}
+      transition={{ type: "tween", duration: 0 }} // Nessuna animazione fluida (molto Win95)
+
+      // E nel className gestiamo dimensioni e posizionamento CSS
+      className={`absolute flex flex-col ${className} ${
+        isMaximized ? "w-full h-full max-w-none max-h-none" : "" // Rimuove eventuali limiti
+      }`}
       style={{
         touchAction: "none",
-        zIndex: zIndex, // Applica lo z-index calcolato dal genitore
+        zIndex: zIndex,
         ...(isMaximized
           ? {
               top: 0,
               left: 0,
               right: 0,
-              bottom: `${TASKBAR_HEIGHT_PX}px`,
+              bottom: `${TASKBAR_HEIGHT_PX}px`, // Lascia spazio alla taskbar
+              height: `calc(100vh - ${TASKBAR_HEIGHT_PX}px)`, // Altezza esatta
+              width: "100vw", // Larghezza esatta
               position: "fixed",
-              // IL FIX PER IL DESKTOP: Rimuove i valori di drag quando è massimizzata
-              transform: "none !important", 
             }
           : {}),
       }}
     >
-      <div className="bg-[#c0c0c0] shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] p-1 h-full flex flex-col">
+      <div className="bg-[#c0c0c0] shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] p-1 h-full flex flex-col w-full">
         
         {/* Window Title Bar */}
         <div
@@ -86,27 +92,27 @@ export default function DraggableWindow({
           }`}
         >
           <span className="font-bold text-sm select-none">{title}</span>
-          <div className="flex gap-1">
+          <div className="flex gap-1 flex-shrink-0">
             <button
-              onClick={(e) => { e.stopPropagation(); onMinimize(id, true); }} // stopPropagation evita di far partire il drag
-              className="bg-[#c0c0c0] text-black w-4 h-4 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[10px] leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]"
+              onClick={(e) => { e.stopPropagation(); onMinimize(id, true); }}
+              className="bg-[#c0c0c0] text-black w-5 h-5 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[12px] font-bold leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf] pb-1"
             >
               _
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); toggleMaximize(); }}
-              className="bg-[#c0c0c0] text-black w-4 h-4 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[10px] leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]"
+              className="bg-[#c0c0c0] text-black w-5 h-5 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[12px] font-bold leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]"
             >
               □
             </button>
-            <button className="bg-[#c0c0c0] text-black w-4 h-4 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[10px] leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf]">
-              x
+            <button className="bg-[#c0c0c0] text-black w-5 h-5 flex items-center justify-center shadow-[inset_-1px_-1px_#0a0a0a,inset_1px_1px_#ffffff,inset_-2px_-2px_#808080,inset_2px_2px_#dfdfdf] text-[12px] font-bold leading-none active:shadow-[inset_1px_1px_#0a0a0a,inset_-1px_-1px_#ffffff,inset_2px_2px_#808080,inset_-2px_-2px_#dfdfdf] pt-[1px]">
+              X
             </button>
           </div>
         </div>
 
         {/* Window Content */}
-        <div className="flex-1 overflow-hidden mt-1 bg-[#c0c0c0]">
+        <div className="flex-1 overflow-auto mt-1 bg-[#c0c0c0] w-full">
           {children}
         </div>
       </div>
