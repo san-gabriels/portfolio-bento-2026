@@ -21,7 +21,7 @@ const ScrollWord = ({ children, progress, range }: { children: React.ReactNode, 
 
 // Dati degli esperimenti
 const EXPERIMENTS = [
-  { id: 1, title: "Hubble 95", category: "WebGL", slug: "hubble95", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" },
+  { id: 1, title: "Hubble 95", category: "WebGL", slug: "hubble95", image: "https://assets.gabrielmihali.com/image-exp001.webp" },
   { id: 2, title: "Fluid Sim", category: "Physics", slug: "fluid-sim", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" },
   { id: 3, title: "ASCII Art", category: "Typography", slug: "ascii", image: "https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800" },
   { id: 4, title: "Cyberpunk City", category: "3D Render", slug: "cyber-city", image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=1200" },
