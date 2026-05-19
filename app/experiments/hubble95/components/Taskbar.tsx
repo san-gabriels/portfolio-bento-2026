@@ -43,11 +43,12 @@ export default function Taskbar({
     return () => clearInterval(interval);
   }, []);
 
-  // Funzione helper per ottenere il nome della finestra dall'ID
+ // Funzione helper per ottenere il nome della finestra dall'ID
   const getWindowTitle = (id: string) => {
     switch(id) {
       case 'apod_window': return 'APOD.exe';
       case 'neows_window': return 'NEOWS_TRACKER.exe';
+      case 'donki_window': return 'SPACE_WX_LOG.exe'; // <-- Aggiunta la nuova finestra
       default: return 'Program.exe';
     }
   };

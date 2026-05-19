@@ -11,30 +11,51 @@ const vt323 = VT323({ weight: "400", subsets: ["latin"] });
 
 type ApodData = { title: string; url: string; explanation: string; media_type: string; };
 type NeoData = { id: string; name: string; is_potentially_hazardous_asteroid: boolean; close_approach_data: { close_approach_date: string; miss_distance: { kilometers: string; }; relative_velocity: { kilometers_per_hour: string; }; }[]; estimated_diameter: { kilometers: { estimated_diameter_min: number; estimated_diameter_max: number; }; }; };
+type DonkiData = { messageType: string; messageID: string; messageIssueTime: string; messageBody: string; };
 
 type WindowState = { id: string; isMinimized: boolean; };
+
+// Funzione helper per rendere i link nei log cliccabili
+const formatLogText = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.split(urlRegex).map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300">
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
 
 export default function Hubble95Client({
   initialApodData,
   initialNeosData,
+  initialDonkiData = [],
 }: {
   initialApodData: ApodData | null;
   initialNeosData: NeoData[];
+  initialDonkiData?: DonkiData[];
 }) {
   const [windowsState, setWindowsState] = useState<WindowState[]>([
     { id: 'apod_window', isMinimized: false },
-    { id: 'neows_window', isMinimized: false }
+    { id: 'neows_window', isMinimized: false },
+    { id: 'donki_window', isMinimized: false }
   ]);
 
-  const [windowOrder, setWindowOrder] = useState<string[]>(['neows_window', 'apod_window']);
+  const [windowOrder, setWindowOrder] = useState<string[]>(['donki_window', 'neows_window', 'apod_window']);
   
   const [isMounted, setIsMounted] = useState(false);
   const [initialPos, setInitialPos] = useState({
-    apod: { x: -10, y: -20 },
-    neows: { x: 10, y: 20 }
+    apod: { x: -20, y: -40 },
+    neows: { x: 0, y: -10 },
+    donki: { x: 20, y: 20 }
   });
 
   const [neos, setNeos] = useState<NeoData[]>(initialNeosData);
+  const [donkiLogs, setDonkiLogs] = useState<DonkiData[]>(initialDonkiData);
   const [showHazardAlert, setShowHazardAlert] = useState(false);
   const [panicoActive, setPanicoActive] = useState(false);
 
@@ -46,7 +67,8 @@ export default function Hubble95Client({
     if (window.innerWidth >= 768) {
       setInitialPos({
         apod: { x: -300, y: -100 },
-        neows: { x: 200, y: 50 }
+        neows: { x: 200, y: -50 },
+        donki: { x: -50, y: 150 }
       });
     }
   }, []);
@@ -98,20 +120,17 @@ export default function Hubble95Client({
               parentRef={parentRef} 
               title="APOD.exe" 
               initial={initialPos.apod} 
-              // Aggiunta altezza di base (h-[550px]) per evitare collassi
               className="w-[90%] max-w-[450px] h-[550px]" 
               isMinimized={windowsState.find(win => win.id === 'apod_window')?.isMinimized}
               onMinimize={handleMinimize}
               zIndex={windowOrder.indexOf('apod_window') + 10}
               onFocus={() => bringToFront('apod_window')}
             >
-              {/* Contenitore Flexbox che sfrutta tutta l'altezza */}
               <div className="p-2 flex flex-col h-full gap-2 overflow-hidden">
                 <h2 className="font-bold text-xl leading-tight border-b border-gray-400 pb-1 flex-shrink-0">
                   {initialApodData.title}
                 </h2>
                 
-                {/* Immagine: Forza l'altezza al 60% e previene che venga schiacciata dal testo */}
                 {initialApodData.media_type === "image" ? (
                   <div className="relative w-full border-2 border-gray-500 bg-black"
                        style={{ flexBasis: '65%', flexShrink: 0 }}>
@@ -130,7 +149,6 @@ export default function Hubble95Client({
                   </div>
                 )}
                 
-                {/* Testo: Prende il restante 40% (o meno) con scrollbar */}
                 <div className="overflow-y-auto pr-2"
                      style={{ flexBasis: '40%', flexGrow: 1 }}>
                   <p className="text-sm">
@@ -147,21 +165,18 @@ export default function Hubble95Client({
             parentRef={parentRef} 
             title="NEOWS_TRACKER.exe" 
             initial={initialPos.neows} 
-            // Aggiunta altezza di base (h-[450px]) 
             className="w-[90%] max-w-[380px] h-[450px]" 
             isMinimized={windowsState.find(win => win.id === 'neows_window')?.isMinimized}
             onMinimize={handleMinimize}
             zIndex={windowOrder.indexOf('neows_window') + 10}
             onFocus={() => bringToFront('neows_window')}
           >
-            {/* Contenitore Flexbox */}
             <div className="p-2 flex flex-col h-full overflow-hidden">
               <h2 className="font-bold text-lg mb-2 border-b border-gray-400 pb-1 flex-shrink-0">
                 Near Earth Objects (Today)
               </h2>
               
               {neos.length > 0 ? (
-                // Lista adattiva: riempie tutta l'altezza disponibile rimuovendo h-[250px]
                 <div className="flex-1 overflow-y-auto pr-2 space-y-3">
                   {neos.map((neo) => (
                     <div key={neo.id} className="border border-gray-400 p-1 text-sm bg-white">
@@ -190,6 +205,43 @@ export default function Hubble95Client({
                 </div>
               ) : (
                 <p>No objects detected today.</p>
+              )}
+            </div>
+          </DraggableWindow>
+
+          {/* Finestra DONKI: Space Weather Log */}
+          <DraggableWindow 
+            id="donki_window" 
+            parentRef={parentRef} 
+            title="SPACE_WX_LOG.exe" 
+            initial={initialPos.donki} 
+            className="w-[90%] max-w-[450px] h-[400px]" 
+            isMinimized={windowsState.find(win => win.id === 'donki_window')?.isMinimized}
+            onMinimize={handleMinimize}
+            zIndex={windowOrder.indexOf('donki_window') + 10}
+            onFocus={() => bringToFront('donki_window')}
+          >
+            <div className="p-2 flex flex-col h-full overflow-hidden bg-black text-[#00ff00]">
+              <h2 className="font-bold text-lg mb-2 border-b border-[#00ff00] pb-1 flex-shrink-0">
+                System Log: Space Weather
+              </h2>
+              
+              {donkiLogs.length > 0 ? (
+                <div className="flex-1 overflow-y-auto pr-2 space-y-4 font-mono text-xs">
+                  {donkiLogs.map((log) => (
+                    <div key={log.messageID} className="border border-[#00aa00] p-2">
+                      <div className="flex justify-between items-start mb-2 border-b border-dashed border-[#00aa00] pb-1">
+                        <span className="font-bold text-white bg-[#00aa00] px-1">{log.messageType}</span>
+                        <span className="text-[#00aa00]">{log.messageIssueTime}</span>
+                      </div>
+                      <pre className="whitespace-pre-wrap font-inherit text-[#00cc00]">
+                        {formatLogText(log.messageBody)}
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="animate-pulse pt-2">Awaiting telemetry...</p>
               )}
             </div>
           </DraggableWindow>
