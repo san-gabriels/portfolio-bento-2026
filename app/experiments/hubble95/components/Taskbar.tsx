@@ -10,12 +10,12 @@ type MinimizedWindow = {
 
 type TaskbarProps = {
   minimizedWindows?: MinimizedWindow[];
-  onRestoreWindow?: (id: string) => void;
+  onRestoreWindowAction?: (id: string) => void;
 };
 
 export default function Taskbar({
   minimizedWindows = [],
-  onRestoreWindow = () => {}
+  onRestoreWindowAction = () => {}
 }: TaskbarProps) {
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [time, setTime] = useState<string>('');
@@ -117,7 +117,7 @@ export default function Taskbar({
         {minimizedWindows.map(win => (
           <button
             key={win.id}
-            onClick={() => onRestoreWindow(win.id)}
+            onClick={() => onRestoreWindowAction(win.id)}
             className="flex items-center h-full px-3 font-bold text-black text-xs min-w-[120px] max-w-[150px] focus:outline-none bg-[#c0c0c0] truncate"
             style={{
               boxShadow: 'inset 1px 1px 0 #fff, inset -1px -1px 0 #0a0a0a, inset 2px 2px 0 #dfdfdf, inset -2px -2px 0 #808080'

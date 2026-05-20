@@ -364,7 +364,7 @@ export default function Hubble95Client({
       )}
 
       {showHazardAlert && <AlertPopup onIgnore={() => setShowHazardAlert(false)} onPanic={() => { setPanicoActive(true); setShowHazardAlert(false); }} parentRef={parentRef} />}
-      <Taskbar minimizedWindows={windowsState.filter(win => win.isMinimized)} onRestoreWindow={(id) => { handleMinimize(id, false); bringToFront(id); }} />
+      <Taskbar minimizedWindows={windowsState.filter(win => win.isMinimized)} onRestoreWindowAction={(id) => { handleMinimize(id, false); bringToFront(id); }} />
     </motion.div>
   );
 }
