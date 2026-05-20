@@ -48,7 +48,8 @@ export default function Taskbar({
     switch(id) {
       case 'apod_window': return 'APOD.exe';
       case 'neows_window': return 'NEOWS_TRACKER.exe';
-      case 'donki_window': return 'SPACE_WX_LOG.exe'; // <-- Aggiunta la nuova finestra
+      case 'donki_window': return 'SPACE_WX_LOG.exe';
+      case 'epic_window': return 'BLUE_MARBLE.exe';
       default: return 'Program.exe';
     }
   };
