@@ -60,6 +60,8 @@ export default function Hubble95Client({
   const [windowOrder, setWindowOrder] = useState<string[]>(['epic_window', 'apod_window', 'neows_window', 'donki_window']);
   
   const [isMounted, setIsMounted] = useState(false);
+  
+  // STATO INIZIALE: rigorosamente Numeri (Pixel)
   const [initialPos, setInitialPos] = useState({
     epic: { x: 0, y: 0 },
     apod: { x: 0, y: 0 },
@@ -80,30 +82,37 @@ export default function Hubble95Client({
   const controls = useAnimation();
 
   useEffect(() => {
-    setIsMounted(true);
-    
-    const width = window.innerWidth;
-    const isMobile = width < 768;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const isMobile = w < 768;
 
     if (isMobile) {
+      // LAYOUT MOBILE: Impilato e Scrollabile (Pixel esatti)
       setInitialPos({
-        epic:  { x: 0, y: 20 },
-        apod:  { x: 0, y: 740 },
-        neows: { x: 0, y: 1310 },
-        donki: { x: 0, y: 1780 }
+        epic:  { x: 8, y: 8 },
+        apod:  { x: 8, y: 680 },
+        neows: { x: 8, y: 1250 },
+        donki: { x: 8, y: 1720 }
       });
       if (parentRef.current) {
         parentRef.current.style.overflowY = "auto";
-        parentRef.current.style.display = "block";
+        parentRef.current.style.overflowX = "hidden";
       }
     } else {
+      // LAYOUT DESKTOP: Affiancato a Griglia calcolato in PIXEL al caricamento
       setInitialPos({
-        epic:  { x: -410, y: -160 },
-        apod:  { x: 0,    y: -160 },
-        neows: { x: 410,  y: -160 },
-        donki: { x: 0,    y: 240 }
+        epic:  { x: 8, y: 8 }, // 8px dal bordo sinistro
+        apod:  { x: Math.floor(w * 0.32) + 16, y: 8 }, // epicWidth (32%) + margini
+        neows: { x: Math.floor(w * 0.77) + 24, y: 8 }, // epicWidth + apodWidth (45%) + margini
+        donki: { x: Math.floor(w * 0.32) + 16, y: Math.floor(h * 0.60) + 16 } // Sotto APOD
       });
+      if (parentRef.current) {
+        parentRef.current.style.overflowY = "hidden";
+        parentRef.current.style.overflowX = "hidden";
+      }
     }
+    
+    setIsMounted(true);
   }, []);
 
   const bringToFront = useCallback((id: string) => {
@@ -171,7 +180,8 @@ export default function Hubble95Client({
   return (
     <motion.div
       animate={controls}
-      className={`min-h-screen bg-[#008080] w-full flex flex-col items-center justify-center relative overflow-hidden pb-[40px] ${vt323.className} text-black selection:bg-blue-800 selection:text-white`}
+      // Rimosso flex center: layout absolute basato su top/left dalla viewport originale
+      className={`min-h-screen bg-[#008080] w-full block relative overflow-hidden pb-[40px] ${vt323.className} text-black selection:bg-blue-800 selection:text-white`}
       ref={parentRef}
     >
       <style dangerouslySetInnerHTML={{ __html: `
@@ -186,7 +196,7 @@ export default function Hubble95Client({
             parentRef={parentRef} 
             title="BLUE_MARBLE.exe" 
             initial={initialPos.epic} 
-            className="w-[95%] md:w-[400px] h-[700px]" 
+            className="top-0 left-0 w-[calc(100vw-16px)] h-[650px] md:w-[32vw] md:h-[calc(100vh-56px)]" 
             isMinimized={windowsState.find(win => win.id === 'epic_window')?.isMinimized} 
             onMinimize={handleMinimize} 
             zIndex={windowOrder.indexOf('epic_window') + 10} 
@@ -264,7 +274,17 @@ export default function Hubble95Client({
 
           {/* 2. Finestra APOD */}
           {initialApodData && (
-            <DraggableWindow id="apod_window" parentRef={parentRef} title="APOD.exe" initial={initialPos.apod} className="w-[95%] md:w-[400px] h-[550px]" isMinimized={windowsState.find(win => win.id === 'apod_window')?.isMinimized} onMinimize={handleMinimize} zIndex={windowOrder.indexOf('apod_window') + 10} onFocus={() => bringToFront('apod_window')}>
+            <DraggableWindow 
+              id="apod_window" 
+              parentRef={parentRef} 
+              title="APOD.exe" 
+              initial={initialPos.apod} 
+              className="top-0 left-0 w-[calc(100vw-16px)] h-[550px] md:w-[45vw] md:h-[calc(60vh-12px)]" 
+              isMinimized={windowsState.find(win => win.id === 'apod_window')?.isMinimized} 
+              onMinimize={handleMinimize} 
+              zIndex={windowOrder.indexOf('apod_window') + 10} 
+              onFocus={() => bringToFront('apod_window')}
+            >
               <div className="p-2 flex flex-col h-full gap-2 overflow-hidden">
                 <h2 className="font-bold text-xl leading-tight border-b border-gray-400 pb-1 flex-shrink-0">{initialApodData.title}</h2>
                 {initialApodData.media_type === "image" ? (
@@ -281,7 +301,17 @@ export default function Hubble95Client({
           )}
 
           {/* 3. Finestra NeoWs */}
-          <DraggableWindow id="neows_window" parentRef={parentRef} title="NEOWS_TRACKER.exe" initial={initialPos.neows} className="w-[95%] md:w-[400px] h-[450px]" isMinimized={windowsState.find(win => win.id === 'neows_window')?.isMinimized} onMinimize={handleMinimize} zIndex={windowOrder.indexOf('neows_window') + 10} onFocus={() => bringToFront('neows_window')}>
+          <DraggableWindow 
+            id="neows_window" 
+            parentRef={parentRef} 
+            title="NEOWS_TRACKER.exe" 
+            initial={initialPos.neows} 
+            className="top-0 left-0 w-[calc(100vw-16px)] h-[450px] md:w-[calc(23vw-32px)] md:h-[calc(60vh-12px)]" 
+            isMinimized={windowsState.find(win => win.id === 'neows_window')?.isMinimized} 
+            onMinimize={handleMinimize} 
+            zIndex={windowOrder.indexOf('neows_window') + 10} 
+            onFocus={() => bringToFront('neows_window')}
+          >
             <div className="p-2 flex flex-col h-full overflow-hidden">
               <h2 className="font-bold text-lg mb-2 border-b border-gray-400 pb-1 flex-shrink-0">Near Earth Objects (Today)</h2>
               {neos.length > 0 ? (
@@ -302,7 +332,17 @@ export default function Hubble95Client({
           </DraggableWindow>
 
           {/* 4. Finestra DONKI */}
-          <DraggableWindow id="donki_window" parentRef={parentRef} title="SPACE_WX_LOG.exe" initial={initialPos.donki} className="w-[95%] md:w-[820px] h-[350px]" isMinimized={windowsState.find(win => win.id === 'donki_window')?.isMinimized} onMinimize={handleMinimize} zIndex={windowOrder.indexOf('donki_window') + 10} onFocus={() => bringToFront('donki_window')}>
+          <DraggableWindow 
+            id="donki_window" 
+            parentRef={parentRef} 
+            title="SPACE_WX_LOG.exe" 
+            initial={initialPos.donki} 
+            className="top-0 left-0 w-[calc(100vw-16px)] h-[400px] md:w-[calc(68vw-24px)] md:h-[calc(40vh-44px)]" 
+            isMinimized={windowsState.find(win => win.id === 'donki_window')?.isMinimized} 
+            onMinimize={handleMinimize} 
+            zIndex={windowOrder.indexOf('donki_window') + 10} 
+            onFocus={() => bringToFront('donki_window')}
+          >
             <div className="p-2 flex flex-col h-full overflow-hidden bg-black text-[#00ff00]">
               <h2 className="font-bold text-lg mb-2 border-b border-[#00ff00] pb-1 flex-shrink-0">System Log: Space Weather</h2>
               {donkiLogs.length > 0 ? (
@@ -317,6 +357,9 @@ export default function Hubble95Client({
               ) : <p className="animate-pulse pt-2">Awaiting telemetry...</p>}
             </div>
           </DraggableWindow>
+          
+          {/* Spaziatore per forzare lo scroll completo su dispositivi mobile */}
+          <div className="md:hidden" style={{ height: '2200px', width: '1px' }} />
         </>
       )}
 
