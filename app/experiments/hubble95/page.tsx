@@ -3,46 +3,53 @@ import Hubble95Client from "./components/Hubble95Client";
 
 export default async function Hubble95Experiment() {
   const apiKey = process.env.NASA_API_KEY || "DEMO_KEY";
+  const today = new Date().toISOString().split("T")[0];
 
   let apodData = null;
   let neosData = [];
-  let donkiData = []; // Nuovo array per i dati DONKI
+  let donkiData = [];
 
   try {
-    // 1. Fetch APOD
-    const apodRes = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`, {
-      next: { revalidate: 86400 }
-    });
-    if (apodRes.ok) {
+    // Ottimizzazione Massima: Fetching in parallelo con Promise.all
+    // e cache ISR (1h per i dati caldi, 24h per l'APOD)
+    const [apodRes, neoRes, donkiRes] = await Promise.all([
+      fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`, {
+        next: { revalidate: 86400 } // APOD cambia una volta al giorno
+      }).catch(() => null), // Il catch locale previene che il crash di una API blocchi le altre
+      
+      fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`, {
+        next: { revalidate: 3600 } // Aggiorna ogni ora
+      }).catch(() => null),
+      
+      fetch(`https://api.nasa.gov/DONKI/notifications?type=all&api_key=${apiKey}`, {
+        next: { revalidate: 3600 } // Aggiorna ogni ora
+      }).catch(() => null)
+    ]);
+
+    // Parsing delle risposte solo se i fetch sono andati a buon fine
+    if (apodRes?.ok) {
       apodData = await apodRes.json();
     }
-
-    // 2. Fetch NeoWs
-    const today = new Date().toISOString().split("T")[0];
-    const neoRes = await fetch(
-      `https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`,
-      { next: { revalidate: 3600 } }
-    );
-    if (neoRes.ok) {
+    
+    if (neoRes?.ok) {
       const neoJson = await neoRes.json();
       neosData = neoJson.near_earth_objects[today] || [];
     }
 
-    // 3. Fetch DONKI Notifications (Ultime notifiche meteo spaziale)
-    const donkiRes = await fetch(
-      `https://api.nasa.gov/DONKI/notifications?type=all&api_key=${apiKey}`,
-      { next: { revalidate: 3600 } }
-    );
-    if (donkiRes.ok) {
+    if (donkiRes?.ok) {
       donkiData = await donkiRes.json();
     }
+    
   } catch (error) {
-    console.error("Error fetching from NASA APIs:", error);
+    // Questo catturerà solo errori critici non gestiti dalle fetch singole
+    console.error("Critical error fetching NASA APIs:", error);
   }
 
-  return <Hubble95Client 
-    initialApodData={apodData} 
-    initialNeosData={neosData} 
-    initialDonkiData={donkiData} 
-  />;
+  return (
+    <Hubble95Client 
+      initialApodData={apodData} 
+      initialNeosData={neosData} 
+      initialDonkiData={donkiData} 
+    />
+  );
 }
