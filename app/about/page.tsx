@@ -31,7 +31,7 @@ const EXPERIENCE_DATA = [
   },
 ];
 
-const PARAGRAPH = "Crafting scalable web ecosystems means turning complex business challenges into measurable digital platforms. As a Digital Infrastructure Architect, my focus is on designing data-driven web experiences rather than just building standard websites. This approach is deeply rooted in my academic background in Information Philosophy. Understanding the epistemic relationship between raw data, structured information, and actionable knowledge provides a rigorous logical framework for web architecture and technical SEO. By seamlessly integrating advanced algorithmic workflows into the process, deployment and performance are significantly accelerated, always keeping human critical thinking at the core of every project.";
+const PARAGRAPH = "Crafting scalable web ecosystems means turning complex business challenges into measurable digital platforms. As a Digital Infrastructure Architect, my focus is on designing data-driven web experiences rather than just building standard websites. This approach is deeply rooted in my academic background in Information Philosophy. Understanding the relationship between raw data, structured information, and actionable knowledge provides a rigorous logical framework for web architecture and technical SEO. By seamlessly integrating advanced algorithmic workflows into the process, deployment and performance are significantly accelerated, always keeping human critical thinking at the core of every project.";
 
 const words = PARAGRAPH.split(" ");
 const emailText = "contact@gabrielmihali.com";
