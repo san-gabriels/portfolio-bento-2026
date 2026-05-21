@@ -1,4 +1,4 @@
-# Gabriel Mihali | Digital Infrastructure Architect
+# Gabriel Mihali | Web Infrastructure Architect
 
 > A modern, highly optimized portfolio built with Next.js App Router, deployed at the Edge via Cloudflare Pages.
 

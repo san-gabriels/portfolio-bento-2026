@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 const EXPERIENCE_DATA = [
   {
     year: "2023 - Present",
-    role: "Digital Infrastructure Architect and Web Analytics Lead",
+    role: "Web Infrastructure Architect and Web Analytics Lead",
     company: "C.NEXT Digital Ecosystem",
     description: "Designing and scaling data-driven web ecosystems. Driving technical SEO strategies and advanced GA4 tracking to optimize conversion flows, while integrating AI-assisted coding practices to accelerate custom web development without compromising structural stability and brand identity.",
   },
