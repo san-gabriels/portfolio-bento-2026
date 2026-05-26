@@ -4,6 +4,9 @@ import Hubble95Client from "./components/Hubble95Client";
 // Forza Next.js a calcolare i dati a ogni ricaricamento
 export const dynamic = "force-dynamic";
 
+// Aggiungi questa riga per far felice Cloudflare Pages!
+export const runtime = "edge";
+
 export default async function Hubble95Experiment() {
   const apiKey = process.env.NASA_API_KEY || "DEMO_KEY";
   const today = new Date().toISOString().split("T")[0];
